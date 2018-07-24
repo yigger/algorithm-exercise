@@ -1,0 +1,1 @@
+int *chose_sort(int *array, int length);
