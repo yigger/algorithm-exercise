@@ -6,6 +6,9 @@ int main() {
 
 	chose_sort(array, ARR_LENGTH);
 	bubble_sort(array, ARR_LENGTH);
+	insert_sort(array, ARR_LENGTH);
+	no_swap_insert_sort(array, ARR_LENGTH);
+	shell_sort(array, ARR_LENGTH);
 	getchar();
 	return 0;
 }
