@@ -1,35 +1,35 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
+#include "sort.h"
 #include "helper.h"
 /*
-* Ñ¡ÔñÅÅĞò
-* ÏÈÉèÖÃÒ»¸ö×îĞ¡Öµ£¬È»ºóÔÚºóÃæ±éÀú¹ı³ÌÖĞ²»¶ÏÕÒ³ö±ÈÔ¤ÉèÖµ¸üĞ¡µÄÖµ£¬ÓëÖ®½»»»
+* é€‰æ‹©æ’åº
+* å…ˆè®¾ç½®ä¸€ä¸ªæœ€å°å€¼ï¼Œç„¶ååœ¨åé¢éå†è¿‡ç¨‹ä¸­ä¸æ–­æ‰¾å‡ºæ¯”é¢„è®¾å€¼æ›´å°çš„å€¼ï¼Œä¸ä¹‹äº¤æ¢
 */
 int *chose_sort(int *array, int length) {
-	int cp_arr[ARR_LENGTH];
-	copyArray(array, cp_arr, length);
-	printf("---------- Ñ¡ÔñÅÅĞò -------------\n");
-	for(int i = 0, minIndex = 0; i < length; ++i) {
+	int *cp_arr = copyArray(array);
+	printf("---------- é€‰æ‹©æ’åº -------------\n");
+	for (int i = 0, minIndex = 0; i < length; ++i) {
 		minIndex = i;
-		for(int j = i + 1; j < length; ++j) {
+		for (int j = i + 1; j < length; ++j) {
 			if (less(cp_arr[j], cp_arr[minIndex]) == 1) {
 				minIndex = j;
 			}
 		}
 		swap(&cp_arr[i], &cp_arr[minIndex]);
 	}
-	printf("---------- ÅÅĞò½á¹û -------------\n");
+	printf("---------- æ’åºç»“æœ -------------\n");
 	getResult(cp_arr, length);
 	return cp_arr;
 }
 
 /*
-* Ã°ÅİÅÅĞò£¬Ã¿¸öÊıÓëÖ®ÏàÁÚµÄ¶Ô±È£¬Èô·ûºÏÌõ¼şÔò½»»»
+* å†’æ³¡æ’åºï¼Œæ¯ä¸ªæ•°ä¸ä¹‹ç›¸é‚»çš„å¯¹æ¯”ï¼Œè‹¥ç¬¦åˆæ¡ä»¶åˆ™äº¤æ¢
 */
 int *bubble_sort(int *array, int length) {
-	int cp_arr[ARR_LENGTH];
-	copyArray(array, cp_arr, length);
-	printf("---------- Ã°ÅİÅÅĞò -------------\n");
+	int *cp_arr = copyArray(array);
+	printf("---------- å†’æ³¡æ’åº -------------\n");
 	for (int i = 0; i < length; ++i) {
 		for (int j = 0; j < length; ++j) {
 			if (less(cp_arr[j], cp_arr[i]) == -1) {
@@ -37,36 +37,35 @@ int *bubble_sort(int *array, int length) {
 			}
 		}
 	}
-	printf("---------- ÅÅĞò½á¹û -------------\n");
+	printf("---------- æ’åºç»“æœ -------------\n");
 	getResult(cp_arr, length);
 	return cp_arr;
 }
 
 /*
-*  ²åÈëÅÅĞò01
-*  µÚÒ»²ãÑ­»·¿ÉÒÔÀí½âÎªÒ»¸öË÷ÒıÑ­»·£¬µÚ¶ş²ãÑ­»·ÊÇ±£Ö¤Ë÷ÒıÇ°ÃæµÄÔªËØ¶¼ÄÜ½øĞĞ½»»»£¬µ±Ë÷ÒıÒÆ¶¯µ½×îÓÒ¶ËµÄÊ±ºò¾ÍÊÇÊı×éÅÅĞòÍê³ÉµÄÊ±ºò
+*  æ’å…¥æ’åº01
+*  ç¬¬ä¸€å±‚å¾ªç¯å¯ä»¥ç†è§£ä¸ºä¸€ä¸ªç´¢å¼•å¾ªç¯ï¼Œç¬¬äºŒå±‚å¾ªç¯æ˜¯ä¿è¯ç´¢å¼•å‰é¢çš„å…ƒç´ éƒ½èƒ½è¿›è¡Œäº¤æ¢ï¼Œå½“ç´¢å¼•ç§»åŠ¨åˆ°æœ€å³ç«¯çš„æ—¶å€™å°±æ˜¯æ•°ç»„æ’åºå®Œæˆçš„æ—¶å€™
 */
 int *insert_sort(int *array, int length) {
-	int cp_arr[ARR_LENGTH];
-	copyArray(array, cp_arr, length);
-	printf("---------- ²åÈëÅÅĞò -------------\n");
+	int *cp_arr = copyArray(array);
+	printf("---------- æ’å…¥æ’åº -------------\n");
 	for (int i = 1; i < length; ++i) {
 		for (int j = i; j > 0 && cp_arr[j] < cp_arr[j - 1]; j--) {
 			swap(&cp_arr[j], &cp_arr[j - 1]);
 		}
 	}
-	printf("---------- ÅÅĞò½á¹û -------------\n");
+	printf("---------- æ’åºç»“æœ -------------\n");
 	getResult(cp_arr, length);
+	return cp_arr;
 }
 
 /*
-*  ²åÈëÅÅĞò02
-*  ²»ĞèÒª½»»»ÔªËØ£¬Ö±½Ó°ÑÇ°Ò»¸öÔªËØ¸²¸Çµ½ºóÒ»¸öÔªËØ£¬Ç°ÌáĞèÒªÓÃÒ»¸ö±äÁ¿±£´æºóÒ»¸öÔªËØ£¬¼´µ±Ç°Ë÷ÒıÖµarray[i]
+*  æ’å…¥æ’åº02
+*  ä¸éœ€è¦äº¤æ¢å…ƒç´ ï¼Œç›´æ¥æŠŠå‰ä¸€ä¸ªå…ƒç´ è¦†ç›–åˆ°åä¸€ä¸ªå…ƒç´ ï¼Œå‰æéœ€è¦ç”¨ä¸€ä¸ªå˜é‡ä¿å­˜åä¸€ä¸ªå…ƒç´ ï¼Œå³å½“å‰ç´¢å¼•å€¼array[i]
 */
 int *no_swap_insert_sort(int *array, int length) {
-	int cp_arr[ARR_LENGTH];
-	copyArray(array, cp_arr, length);
-	printf("---------- ²»ĞèÒª½»»»ÔªËØµÄ²åÈëÅÅĞò -------------\n");
+	int *cp_arr = copyArray(array);
+	printf("---------- ä¸éœ€è¦äº¤æ¢å…ƒç´ çš„æ’å…¥æ’åº -------------\n");
 	for (int i = 1; i < length; ++i) {
 		int temp = cp_arr[i];
 		int j = i - 1;
@@ -75,14 +74,17 @@ int *no_swap_insert_sort(int *array, int length) {
 		}
 		cp_arr[j + 1] = temp;
 	}
-	printf("---------- ÅÅĞò½á¹û -------------\n");
+	printf("---------- æ’åºç»“æœ -------------\n");
 	getResult(cp_arr, length);
+	return cp_arr;
 }
 
+/*
+* å¸Œå°”æ’åºï¼Œç›¸å½“äºè¿œè·ç¦»çš„æ’å…¥æ’åº
+*/
 int *shell_sort(int *array, int length) {
-	int cp_arr[ARR_LENGTH];
-	copyArray(array, cp_arr, length);
-	printf("---------- Ï£¶ûÅÅĞò -------------\n");
+	int *cp_arr = copyArray(array);
+	printf("---------- å¸Œå°”æ’åº -------------\n");
 	int h = 1;
 	while (h < ARR_LENGTH / 3) h = 3 * h + 1;
 	while (h >= 1) {
@@ -93,6 +95,117 @@ int *shell_sort(int *array, int length) {
 		}
 		h = h / 3;
 	}
-	printf("---------- ÅÅĞò½á¹û -------------\n");
+	printf("---------- æ’åºç»“æœ -------------\n");
 	getResult(cp_arr, length);
+	return cp_arr;
+}
+
+/*
+* å½’å¹¶æ’åº
+*/
+void merge(int arr[], int start, int m, int r)
+{
+	int i, j, k;
+	int n1 = m - start + 1;
+	int n2 = r - m;
+
+	/* create temp arrays */
+	int *L = (int *)malloc(n1 * sizeof(int));
+	int *R = (int *)malloc(n2 * sizeof(int));
+
+	/* Copy data to temp arrays L[] and R[] */
+	for (i = 0; i < n1; i++)
+		L[i] = arr[start + i];
+	for (j = 0; j < n2; j++)
+		R[j] = arr[m + 1 + j];
+
+	/* Merge the temp arrays back into arr[l..r]*/
+	i = 0; // Initial index of first subarray
+	j = 0; // Initial index of second subarray
+	k = start; // Initial index of merged subarray
+	while (i < n1 && j < n2)
+	{
+		if (L[i] <= R[j]) {
+			arr[k++] = L[i++];
+		} else{
+			arr[k++] = R[j++];
+		}
+	}
+
+	while (i < n1)
+	{
+		arr[k++] = L[i++];
+	}
+
+	while (j < n2)
+	{
+		arr[k++] = R[j++];
+	}
+}
+
+void sort(int *array, int start, int end) {
+	if (start >= end) return;
+	int mid = start + (end - start) / 2;
+	
+	sort(array, start, mid);
+	sort(array, mid + 1, end);
+	merge(array, start, mid, end);
+}
+
+int *merge_sort(int *array, int length) {
+	printf("---------- å½’å¹¶æ’åº -------------\n");
+	int *cp_arr = copyArray(array);
+	sort(cp_arr, 0, length - 1);
+	getResult(cp_arr, length);
+	return temp;
+}
+/*
+* * å¿«é€Ÿæ’åº
+*/
+void quicksort(int array[], int maxlen, int begin, int end)
+{
+	int i, j;
+
+	if (begin < end)
+	{
+		i = begin + 1;  // å°†array[begin]ä½œä¸ºåŸºå‡†æ•°ï¼Œå› æ­¤ä»array[begin+1]å¼€å§‹ä¸åŸºå‡†æ•°æ¯”è¾ƒï¼
+		j = end;        // array[end]æ˜¯æ•°ç»„çš„æœ€åä¸€ä½
+
+		while (i < j)
+		{
+			if (array[i] > array[begin])  // å¦‚æœæ¯”è¾ƒçš„æ•°ç»„å…ƒç´ å¤§äºåŸºå‡†æ•°ï¼Œåˆ™äº¤æ¢ä½ç½®ã€‚
+			{
+				swap(&array[i], &array[j]);  // äº¤æ¢ä¸¤ä¸ªæ•°
+				j--;
+			}
+			else
+			{
+				i++;  // å°†æ•°ç»„å‘åç§»ä¸€ä½ï¼Œç»§ç»­ä¸åŸºå‡†æ•°æ¯”è¾ƒã€‚
+			}
+		}
+
+		/* è·³å‡ºwhileå¾ªç¯åï¼Œi = jã€‚
+		* æ­¤æ—¶æ•°ç»„è¢«åˆ†å‰²æˆä¸¤ä¸ªéƒ¨åˆ†  -->  array[begin+1] ~ array[i-1] < array[begin]
+		*                           -->  array[i+1] ~ array[end] > array[begin]
+		* è¿™ä¸ªæ—¶å€™å°†æ•°ç»„arrayåˆ†æˆä¸¤ä¸ªéƒ¨åˆ†ï¼Œå†å°†array[i]ä¸array[begin]è¿›è¡Œæ¯”è¾ƒï¼Œå†³å®šarray[i]çš„ä½ç½®ã€‚
+		* æœ€åå°†array[i]ä¸array[begin]äº¤æ¢ï¼Œè¿›è¡Œä¸¤ä¸ªåˆ†å‰²éƒ¨åˆ†çš„æ’åºï¼ä»¥æ­¤ç±»æ¨ï¼Œç›´åˆ°æœ€åi = jä¸æ»¡è¶³æ¡ä»¶å°±é€€å‡ºï¼
+		*/
+
+		if (array[i] >= array[begin])  // è¿™é‡Œå¿…é¡»è¦å–ç­‰â€œ>=â€ï¼Œå¦åˆ™æ•°ç»„å…ƒç´ ç”±ç›¸åŒçš„å€¼æ—¶ï¼Œä¼šå‡ºç°é”™è¯¯ï¼
+		{
+			i--;
+		}
+
+		swap(&array[begin], &array[i]);  // äº¤æ¢array[i]ä¸array[begin]
+
+		quicksort(array, maxlen, begin, i);
+		quicksort(array, maxlen, j, end);
+	}
+}
+
+void quick_sort(int *array, int length) {
+	printf("---------- å¿«é€Ÿæ’åº -------------\n");
+	int *cp_arr = copyArray(array);
+	quicksort(cp_arr, 10, 0, length - 1);
+	getResult(array, length);
 }
