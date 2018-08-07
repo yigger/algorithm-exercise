@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "../lib/helper.h"
 #include "../lib/sort.h"
-#include "../lib/tree.h"
+//#include "../lib/tree.h"
 int main() {
 	int array[] = {12, 25, 36, 20, 15, 16, 10, 8, 5, 3};
 	// 排序相关
@@ -16,7 +16,7 @@ int main() {
 	quick_sort(array, ARR_LENGTH);
 
 	// 二叉树相关
-	Tree *tree = initTree();
+	//Tree *tree = initTree();
 
 	getchar();
 	return 0;

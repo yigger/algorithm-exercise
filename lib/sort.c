@@ -162,50 +162,33 @@ int *merge_sort(int *array, int length) {
 /*
 * * 快速排序
 */
-void quicksort(int array[], int maxlen, int begin, int end)
+void quicksort(int *array, int begin, int end)
 {
-	int i, j;
+	int value = array[begin];
+	int q_start = begin;
+	int q_end = end;
+	int mid = (q_start + q_end) / 2;
+	if (begin >= end) return ;
 
-	if (begin < end)
-	{
-		i = begin + 1;  // 将array[begin]作为基准数，因此从array[begin+1]开始与基准数比较！
-		j = end;        // array[end]是数组的最后一位
-
-		while (i < j)
-		{
-			if (array[i] > array[begin])  // 如果比较的数组元素大于基准数，则交换位置。
-			{
-				swap(&array[i], &array[j]);  // 交换两个数
-				j--;
-			}
-			else
-			{
-				i++;  // 将数组向后移一位，继续与基准数比较。
-			}
+	while (begin < end) {
+		while (begin < end && array[end] <= value) {
+			end--;
 		}
-
-		/* 跳出while循环后，i = j。
-		* 此时数组被分割成两个部分  -->  array[begin+1] ~ array[i-1] < array[begin]
-		*                           -->  array[i+1] ~ array[end] > array[begin]
-		* 这个时候将数组array分成两个部分，再将array[i]与array[begin]进行比较，决定array[i]的位置。
-		* 最后将array[i]与array[begin]交换，进行两个分割部分的排序！以此类推，直到最后i = j不满足条件就退出！
-		*/
-
-		if (array[i] >= array[begin])  // 这里必须要取等“>=”，否则数组元素由相同的值时，会出现错误！
-		{
-			i--;
+		swap(&array[begin], &array[end]);
+		while (begin < end && array[begin] >= value) {
+			begin++;
 		}
-
-		swap(&array[begin], &array[i]);  // 交换array[i]与array[begin]
-
-		quicksort(array, maxlen, begin, i);
-		quicksort(array, maxlen, j, end);
+		swap(&array[begin], &array[end]);
 	}
+	swap(&array[begin], &value);
+
+	quicksort(array, q_start, mid);
+	quicksort(array, mid + 1, q_end);
 }
 
 void quick_sort(int *array, int length) {
 	printf("---------- 快速排序 -------------\n");
 	int *cp_arr = copyArray(array);
-	quicksort(cp_arr, 10, 0, length - 1);
-	getResult(array, length);
+	quicksort(cp_arr, 0, length - 1);
+	getResult(cp_arr, length);
 }
