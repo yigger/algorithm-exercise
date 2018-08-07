@@ -1,6 +1,30 @@
-﻿#include "helper.h"
-#include <stdio.h>
-#include <stdlib.h>
+﻿#include <stdio.h>
+#include "helper.h"
+#define PREFIX_SIZE (0)
+
+void *zmalloc(size_t size) {
+	void *ptr = malloc(size + PREFIX_SIZE);
+	if (ptr == NULL) {
+		printf("zmalloc 分配失败\n");
+		exit(1);
+	}
+	return ptr;
+}
+
+void *zcalloc(size_t size) {
+	void *ptr = calloc(1, size+PREFIX_SIZE);
+	if (ptr == NULL) {
+		printf("calloc 内存分配失败");
+		exit(1);
+	}
+	return ptr;
+}
+
+void zfree(void *ptr) {
+	if (ptr == NULL) return ;
+	free(ptr);
+}
+
 void swap(int *num1, int *num2) {
 	int temp;
 	temp = *num1;

@@ -1,4 +1,7 @@
-﻿int *chose_sort(int *array, int length);
+﻿#ifndef __SORT_H
+#define __SORT_H
+
+int *chose_sort(int *array, int length);
 int *bubble_sort(int *array, int length);
 int *insert_sort(int *array, int length);
 int *no_swap_insert_sort(int *array, int length);
@@ -12,3 +15,5 @@ int *merge_sort(int *array, int length);
 // 快排
 void quicksort(int array[], int maxlen, int begin, int end);
 void quick_sort(int *array, int length);
+
+#endif
