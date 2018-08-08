@@ -1,0 +1,11 @@
+{
+  "editor.tabSize": 4,
+  "files.associations": {
+    "stdlib.h": "c",
+    "stdio.h": "c",
+    "helper.h": "c",
+    "sort.h": "c",
+    "tree.h": "c",
+    "stddef.h": "c"
+  }
+}

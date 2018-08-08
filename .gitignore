@@ -1,9 +1,2 @@
-*
-!*.c
-!*.h
-!*.cpp
-!lib/*
-!src/*
-!makefile
-!README.md
-!.gitignore
+*.o
+algorithm
