@@ -16,5 +16,6 @@ typedef struct Tree {
 } Tree;
 
 Tree *initTree();
+Tree *addNode(Tree *tree, void *value);
 
 #endif

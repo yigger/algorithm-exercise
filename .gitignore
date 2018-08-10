@@ -1,2 +1,7 @@
-*.o
-algorithm
+# Ignore everything:
+*
+
+# Except for the themes directories:
+
+!lib/*
+!src/*
