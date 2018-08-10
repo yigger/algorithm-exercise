@@ -29,9 +29,32 @@ Tree *addNode(Tree *tree, void *value) {
         tree->height = 1;
         tree->nodeSize = 1;
     } else {
-        // printf("not null");
+        Node *node = SearchInsertPosition(tree, value);
+        if (node->value > value) {
+            // 插入到左子树
+            
+        } else {
+            // 插入到右子树
+
+        }
     }
 
     return tree;
+}
+
+Node *SearchInsertPosition(const Tree *tree, void *value) {
+    if(tree->root == NULL) return NULL;
+    Node *node = tree->root;
+    return searchNode(node, value);
+}
+
+Node *searchNode(const Node *node, void *value) {
+    if (value < node->value && node->left != NULL) {
+        searchNode(node->left, value);
+    } else if (value > node->value && node->right != NULL) {
+        searchNode(node->right, value);
+    } else {
+        return node;
+    }
 }
 

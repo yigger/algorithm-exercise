@@ -42,6 +42,17 @@ int less(int num1, int num2) {
 	}
 }
 
+int compareInt(const void *a, const void *b) 
+{
+	int x = *(const int *)a;
+	int y = *(const int *)b;
+	if (x < y)
+		return -1;
+	else if (x > y)
+		return 1;
+	return 0;
+}
+
 void getResult(int *arr, int length) {
 	for (int i = 0; i < length; i++) {
 		printf("Index(%d) - %d \n", i, arr[i]);
