@@ -1,4 +1,4 @@
-#include "helper.h"
+﻿#include "helper.h"
 #include "tree.h"
 #include <stdlib.h>
 #include <stddef.h>
@@ -12,6 +12,7 @@ Tree *initTree() {
     tree->root = NULL;
     tree->height = 0;
     tree->nodeSize = 0;
+	tree->compare = NULL;
     return tree;
 }
 
@@ -29,32 +30,44 @@ Tree *addNode(Tree *tree, void *value) {
         tree->height = 1;
         tree->nodeSize = 1;
     } else {
-        Node *node = SearchInsertPosition(tree, value);
-        if (node->value > value) {
-            // 插入到左子树
-            
-        } else {
-            // 插入到右子树
-
-        }
+		Node *newNode;
+		newNode = zmalloc(sizeof(Node*));
+        newNode->value = value;
+        newNode->left = NULL;
+        newNode->right = NULL;
+        SearchInsertNewNode(tree, tree->root, newNode);
     }
 
     return tree;
 }
 
-Node *SearchInsertPosition(const Tree *tree, void *value) {
-    if(tree->root == NULL) return NULL;
-    Node *node = tree->root;
-    return searchNode(node, value);
-}
-
-Node *searchNode(const Node *node, void *value) {
-    if (value < node->value && node->left != NULL) {
-        searchNode(node->left, value);
-    } else if (value > node->value && node->right != NULL) {
-        searchNode(node->right, value);
+Node *
+SearchInsertNewNode(Tree *tree, Node *child, Node *newNode) {
+    int compareResult = tree->compare(child->value, newNode->value);
+    if (compareResult == 1) {
+        // 递归左子树
+        if (child->left == NULL) {
+            child->left = newNode;
+            return child;
+        }
+        return SearchInsertNewNode(tree, child->left, newNode);
+    } else if (compareResult == -1) {
+        // 递归右子树
+        if (child->right == NULL) {
+            child->right = newNode;
+            return child;
+        }
+        return SearchInsertNewNode(tree, child->right, newNode);
     } else {
-        return node;
+        // 已存在相同的值
+        return NULL;
     }
 }
 
+void
+preOrderTraverse(Node *node) {
+    if(node == NULL) return;
+    printf("%d ", (*(int *)node->value));
+    preOrderTraverse(node->left);
+    preOrderTraverse(node->right);
+}

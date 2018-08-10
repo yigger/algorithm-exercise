@@ -17,10 +17,12 @@ int main() {
 
 	// 二叉树相关
 	Tree *tree = initTree();
-	int a = 5;
-	addNode(tree, &a);
-	printf("%d\n", (*(int*)tree->root->value));
-
+	tree->compare = &compareInt;
+	for(int i = 0;i < ARR_LENGTH; ++i) {
+		addNode(tree, &array[i]);
+	}
+	preOrderTraverse(tree->root);
+	
 	getchar();
 	return 0;
 }
