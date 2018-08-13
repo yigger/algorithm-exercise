@@ -1,13 +1,15 @@
 ﻿#ifndef __TREE_H
 #define __TREE_H
 
+#define getNodeValue(node) ((*(int *) ((node)->value)))
+
 // 二叉树
 typedef struct Node {
     void *value;
     struct Node *left;
     struct Node *right;
+    struct Node *parent;
 } Node;
-
 
 typedef struct Tree {
     int height;
@@ -20,6 +22,12 @@ typedef struct Tree {
 
 Tree *initTree();
 Tree *addNode(Tree *tree, void *value);
-Node *SearchInsertNewNode(Tree *tree, Node *root, Node *newNode);
+Tree *deleteNode(Tree *tree, Node *node);
+// 查找结点
+Node *search(Tree const *tree, void *value);
+// 先序遍历
 void preOrderTraverse(Node *node);
+
+
+
 #endif

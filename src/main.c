@@ -21,7 +21,19 @@ int main() {
 	for(int i = 0;i < ARR_LENGTH; ++i) {
 		addNode(tree, &array[i]);
 	}
+
+	// int searchVal = 20;
+	// Node *findNode = search(tree, &searchVal);
+	// if (findNode != NULL) {
+	// 	printf("成功命中节点，节点值 = %d，", (*(int*)findNode->value));
+	// 	if (findNode->parent != NULL) {
+	// 		printf("父节点： %d", (*(int*)((findNode->parent)->value)));
+	// 	}
+	// 	printf("\n");
+	// }
+	
 	preOrderTraverse(tree->root);
+
 	
 	getchar();
 	return 0;
