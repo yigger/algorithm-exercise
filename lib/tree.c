@@ -37,7 +37,8 @@ Tree
     return tree;
 }
 
-Node* insert(Tree *tree, Node* node, void *key) {
+Node
+*insert(Tree *tree, Node* node, void *key) {
     /* If the tree is empty, return a new Node */
     if (node == NULL) {
         Node *newNode;
@@ -82,27 +83,68 @@ Node* insert(Tree *tree, Node* node, void *key) {
 //   /  \   =>   /
 //  25  35      25
 // 第三种情况需要考虑递归
-Tree *deleteNode(Tree *tree, Node *node) {
-    if (tree->root == NULL || node == NULL) return NULL;
-    if (node->left == NULL && node->right == NULL) {
-        // node = NULL;
-        // zfree(node);
-    } else if (node->left != NULL && node->right == NULL) {
-        node->parent->left = node->left;
-        node->left = NULL;
-        free(node);
-        // free(node); // why error?
-    } else if (node->right != NULL && node->left == NULL) {
-        node->parent->right = node->right;
-        node->right = NULL;
-    } else {
+// Tree *deleteNodeError(Tree *tree, Node *node) {
+//     if (tree->root == NULL || node == NULL) return NULL;
+//     if (node->left == NULL && node->right == NULL) {
+//         // node = NULL;
+//         // zfree(node);
+//     } else if (node->left != NULL && node->right == NULL) {
+//         node->parent->left = node->left;
+//         node->left = NULL;
+//         // free(node); // why error?
+//     } else if (node->right != NULL && node->left == NULL) {
+//         node->parent->right = node->right;
+//         node->right = NULL;
+//     } else {
         
-    }
+//     }
     
-    return tree;
+//     return tree;
+// }
+
+Node
+*minValueNode(Node *node)
+{
+    Node *current = node;
+    while (current->left != NULL)
+        current = current->left;
+ 
+    return current;
 }
 
-Node *search(Tree const *tree, void *value) {
+Node
+*deleteNode(Tree *tree, Node *root, void *key) {
+    if (root == NULL) return root;
+    int compareResult = tree->compare(key, root->value);
+    if (compareResult == -1) {
+        root->left = deleteNode(tree, root->left, key);
+    } else if (compareResult == 1) {
+        root->right = deleteNode(tree, root->right, key);
+    } else {
+        // 左节点为空或右节点为空
+        if (root->left == NULL)
+        {
+            Node *temp = root->right;
+            // free(root); // why error?
+            return temp;
+        }
+        else if (root->right == NULL)
+        {
+            Node *temp = root->left;
+            // free(root); // why error?
+            return temp;
+        }
+        
+        // 左右节点均存在，则取右节点部分的最小值，并把该“最小值”替换到要删除的节点的value，最后，删除这个“最小值”
+        Node *temp = minValueNode(root->right);
+        root->value = temp->value;
+        root->right = deleteNode(tree, root->right, temp->value);
+    }
+    return root;
+}
+
+Node
+*search(Tree const *tree, void *value) {
     Node *node = tree->root;
     if (node == NULL) return NULL;
     while (1) {

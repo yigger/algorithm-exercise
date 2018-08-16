@@ -23,7 +23,10 @@ typedef struct Tree {
 Tree *initTree();
 Tree *addNode(Tree *tree, void *value);
 Node* insert(Tree *tree, Node* node, void *key);
-Tree *deleteNode(Tree *tree, Node *node);
+// Tree *deleteNodeError(Tree *tree, Node *node);
+Node *minValueNode(Node *node);
+Node *deleteNode(Node *root, void *key);
+Node *minValueNode(Node *node);
 // 查找结点
 Node *search(Tree const *tree, void *value);
 // 先序遍历
