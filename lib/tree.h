@@ -22,6 +22,7 @@ typedef struct Tree {
 
 Tree *initTree();
 Tree *addNode(Tree *tree, void *value);
+Node* insert(Tree *tree, Node* node, void *key);
 Tree *deleteNode(Tree *tree, Node *node);
 // 查找结点
 Node *search(Tree const *tree, void *value);

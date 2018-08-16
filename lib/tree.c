@@ -31,41 +31,46 @@ Tree
         tree->height = 1;
         tree->nodeSize = 1;
     } else {
-        Node *newNode, *node;
-		if ((newNode = zmalloc(sizeof(Node*))) == NULL) {
-            return NULL;
-        }
-        newNode->value = value;
-        newNode->left = NULL;
-        newNode->right = NULL;
-        node = tree->root;
-        while (1) {
-            int compareResult = tree->compare(value, node->value);
-            if (compareResult == 0) {
-                // free(newNode);
-                return NULL;
-            }
-
-            if (compareResult == -1) {
-                if (node->left == NULL) {
-                    node->left = newNode;
-                    break;
-                }
-                node = node->left;
-            } else  {
-                if (node->right == NULL) {
-                    node->right = newNode;
-                    break;
-                }
-                node = node->right;
-            }
-        }
-        newNode->parent = zmalloc(sizeof(Node*));
-        newNode->parent = node;
-        tree->nodeSize = tree->nodeSize + 1;
+        insert(tree, tree->root, value);
     }
 
     return tree;
+}
+
+Node* insert(Tree *tree, Node* node, void *key) {
+    /* If the tree is empty, return a new Node */
+    if (node == NULL) {
+        Node *newNode;
+        if ((newNode = zmalloc(sizeof(Node*))) == NULL) {
+            return NULL;
+        }
+        newNode->value = key;
+        newNode->left = NULL;
+        newNode->right = NULL;
+        newNode->parent = NULL;
+        return newNode;
+    }
+
+    int compareResult = tree->compare(key, node->value);
+    /* Otherwise, recur down the tree */
+    if (compareResult == -1) {
+        Node *lchild = insert(tree, node->left, key);
+        node->left  = lchild;
+ 
+        // Set parent of root of left subtree
+        lchild->parent = node;
+    }
+    else if (compareResult == 1)
+    {
+        Node *rchild = insert(tree, node->right, key);
+        node->right  = rchild;
+ 
+        // Set parent of root of right subtree
+        rchild->parent = node;
+    }
+ 
+    /* return the (unchanged) Node pointer */
+    return node;
 }
 
 // 删除节点
@@ -80,13 +85,18 @@ Tree
 Tree *deleteNode(Tree *tree, Node *node) {
     if (tree->root == NULL || node == NULL) return NULL;
     if (node->left == NULL && node->right == NULL) {
-        zfree(node);
+        // node = NULL;
+        // zfree(node);
     } else if (node->left != NULL && node->right == NULL) {
-        
+        node->parent->left = node->left;
+        node->left = NULL;
+        free(node);
+        // free(node); // why error?
     } else if (node->right != NULL && node->left == NULL) {
-
+        node->parent->right = node->right;
+        node->right = NULL;
     } else {
-
+        
     }
     
     return tree;
@@ -115,7 +125,7 @@ Node *search(Tree const *tree, void *value) {
 void
 preOrderTraverse(Node *node) {
     if(node == NULL) return;
-    printf("value = %d ", (*(int *)node->value));
+    printf("%d ", (*(int *)node->value));
     // if (node->parent != NULL) {
 	// 	printf("parent = %d ", (*(int *)node->parent->value));
     // }
