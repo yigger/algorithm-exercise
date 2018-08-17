@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stddef.h>
 
-Tree
-*initTree() {
+Tree *
+initTree() {
     Tree *tree;
     if((tree = zmalloc(sizeof(*tree))) == NULL)
         return NULL;
@@ -15,8 +15,8 @@ Tree
     return tree;
 }
 
-Tree
-*addNode(Tree *tree, void *value) {
+Tree *
+addNode(Tree *tree, void *value) {
     if (tree->root == NULL) {
         Node *node;
         if ((node = zmalloc(sizeof(*node))) == NULL) {
@@ -37,8 +37,8 @@ Tree
     return tree;
 }
 
-Node
-*insert(Tree *tree, Node* node, void *key) {
+Node *
+insert(Tree *tree, Node* node, void *key) {
     /* If the tree is empty, return a new Node */
     if (node == NULL) {
         Node *newNode;
@@ -102,8 +102,8 @@ Node
 //     return tree;
 // }
 
-Node
-*minValueNode(Node *node)
+Node *
+minValueNode(Node *node)
 {
     Node *current = node;
     while (current->left != NULL)
@@ -112,8 +112,8 @@ Node
     return current;
 }
 
-Node
-*deleteNode(Tree *tree, Node *root, void *key) {
+Node *
+deleteNode(Tree *tree, Node *root, void *key) {
     if (root == NULL) return root;
     int compareResult = tree->compare(key, root->value);
     if (compareResult == -1) {
@@ -143,8 +143,8 @@ Node
     return root;
 }
 
-Node
-*search(Tree const *tree, void *value) {
+Node *
+search(Tree const *tree, void *value) {
     Node *node = tree->root;
     if (node == NULL) return NULL;
     while (1) {
