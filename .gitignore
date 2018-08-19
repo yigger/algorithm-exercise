@@ -1,7 +1,6 @@
-# Ignore everything:
-*
-
-# Except for the themes directories:
-
-!lib/*
-!src/*
+.vs
+.vscode
+Debug/
+x64
+algorithm*
+*.o

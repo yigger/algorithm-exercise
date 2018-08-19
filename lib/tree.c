@@ -1,5 +1,5 @@
-﻿#include "helper.h"
-#include "tree.h"
+﻿#include "./helper.h"
+#include "./tree.h"
 #include <stdlib.h>
 #include <stddef.h>
 
@@ -42,7 +42,7 @@ insert(Tree *tree, Node* node, void *key) {
     /* If the tree is empty, return a new Node */
     if (node == NULL) {
         Node *newNode;
-        if ((newNode = zmalloc(sizeof(Node*))) == NULL) {
+        if ((newNode = zmalloc(sizeof(*newNode))) == NULL) {
             return NULL;
         }
         newNode->value = key;
