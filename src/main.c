@@ -5,6 +5,7 @@
 #include "../lib/sort.h"
 #include "../lib/tree.h"
 #include "../lib/link.h"
+#include "../lib/dict.h"
 int main() {
 	int array[] = {12, 25, 36, 20, 15, 16, 10, 8, 5, 3};
 	// 排序相关
@@ -58,6 +59,12 @@ int main() {
 	}
 	printf("\n元素寻找结果 - %d", (*(int *) listSearchKey(list, &insertVal)->value));
 
+	// 字典
+	dictht *dict;
+	dict = createDict();
+	char *key = 'test';
+	int value = 25;
+	dictAdd(dict, key, &value);
 	getchar();
 	return 0;
 }

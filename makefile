@@ -1,7 +1,7 @@
 cc = gcc
 prom = algorithm
-deps = lib/helper.h lib/sort.h lib/tree.h lib/link.h
-obj = src/main.o lib/tree.o lib/helper.o lib/sort.o lib/link.o
+deps = lib/helper.h lib/sort.h lib/tree.h lib/link.h lib/dict.h
+obj = src/main.o lib/tree.o lib/helper.o lib/sort.o lib/link.o lib/dict.o
 
 $(prom): $(obj)
 	@$(cc) -o $(prom) $(obj)
