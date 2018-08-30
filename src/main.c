@@ -1,6 +1,7 @@
 ﻿#include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <math.h>
 #include "../lib/helper.h"
 #include "../lib/sort.h"
 #include "../lib/tree.h"
@@ -57,14 +58,15 @@ int main() {
 		printf("%d ", (*(int *)node->value));
 		node = node->next;
 	}
-	printf("\n元素寻找结果 - %d", (*(int *) listSearchKey(list, &insertVal)->value));
+	printf("\n元素寻找结果 - %d\n", (*(int *) listSearchKey(list, &insertVal)->value));
 
 	// 字典
 	dictht *dict;
 	dict = createDict();
-	char *key = 'test';
-	int value = 25;
-	dictAdd(dict, key, &value);
+	char *key = "22weqw";
+	char *value = "25";
+	dictAdd(dict, key, value);
+
 	getchar();
 	return 0;
 }

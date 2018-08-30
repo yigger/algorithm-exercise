@@ -3,6 +3,8 @@
 
 #define DICT_OK 0
 #define DICT_ERR 1
+#define HT_PRIME_1 151
+#define HT_PRIME_2 156
 
 typedef struct dictEntry {
     void *key;
@@ -19,6 +21,8 @@ typedef struct dictht {
     // 哈希表大小
     unsigned long size;
 
+    unsigned long count;
+
     // 已有节点数
     unsigned long used;
 } dictht;
@@ -28,9 +32,7 @@ typedef struct dictht {
 
 dictht *createDict();
 int *dictAdd(dictht *dict, void *key, void *val);
-static unsigned int _dictKeyIndex(void *key);
-dictEntry *dictAddRaw(dictht *dict, void *key);
-int *dictAdd(dictht *dict, void *key, void *val);
-
-
+dictEntry *newEntry(void *key, void *value);
+static int ht_hash(const char* s, const int a, const int m);
+static int ht_get_hash(const char* s, const int num_buckets, const int attempt);
 #endif
