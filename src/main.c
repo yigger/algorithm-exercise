@@ -63,9 +63,19 @@ int main() {
 	// 字典
 	dictht *dict;
 	dict = createDict();
-	char *key = "22weqw";
-	char *value = "25";
-	dictAdd(dict, key, value);
+	char *key[] = {"hs-01", "hs-02", "hs-03"};
+	char *value[] = {"25", "haai", "sssa"};
+	for(int i = 0;i < 3; ++i) {
+		dictAdd(dict, key[i], value[i]);
+	}
+	printf("已成功添加 %d 个hash\n", dict->count);
+
+	dictSearch(dict, key[0]);
+	// dictDeleteKey(key[0]);
+	printf("查询 %s, 结果：%s\n", key[0], dictSearch(dict, key[0]));
+	printf("查询 %s, 结果：%s\n", key[2], dictSearch(dict, key[2]));
+	
+
 
 	getchar();
 	return 0;
