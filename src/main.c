@@ -71,9 +71,15 @@ int main() {
 	printf("已成功添加 %d 个hash\n", dict->count);
 
 	dictSearch(dict, key[0]);
-	// dictDeleteKey(key[0]);
+	printf("查询 %s, 结果：%s\n", key[0], dictSearch(dict, key[0]));
+	puts("更改第一个元素的值");
+	dictAdd(dict, key[0], value[2]);
 	printf("查询 %s, 结果：%s\n", key[0], dictSearch(dict, key[0]));
 	printf("查询 %s, 结果：%s\n", key[2], dictSearch(dict, key[2]));
+	puts("删除第一个元素");
+	dictDeleteKey(dict, key[0]);
+	printf("查询 %s, 结果：%s\n", key[0], dictSearch(dict, key[0]));
+	
 	
 
 

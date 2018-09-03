@@ -26,7 +26,13 @@ dictAdd(dictht *dict, void *key, void *val) {
     int index = ht_get_hash(entry->key, dict->size, 0);
     dictEntry *curEntry = dict->table[index];
     int i = 1;
-    while (curEntry != NULL && curEntry != &HS_DELETED_ITEM) {
+    while (curEntry != NULL) {
+        if (curEntry != &HS_DELETED_ITEM && strcmp((char *)curEntry->key, key) == 0) {
+            // 如果已经存在了同样的键，则覆盖它的值
+            deleteEntry(curEntry);
+            dict->table[index] = entry;
+            return DICT_OK;
+        }
         index = ht_get_hash(entry->key, dict->size, i);
         curEntry = dict->table[index];
         i ++;
@@ -42,8 +48,8 @@ dictSearch(dictht *dict, const char *key) {
     int index = ht_get_hash(key, dict->size, 0);
     int findHashIndex = 0;
     dictEntry *curEntry = dict->table[index];
-    while(curEntry != NULL && curEntry != &HS_DELETED_ITEM) {
-        if (strcmp((char *)curEntry->key, key) == 0) {
+    while(curEntry != NULL) {
+        if (curEntry != &HS_DELETED_ITEM && strcmp((char *)curEntry->key, key) == 0) {
             return (char *)curEntry->value;
         }
         findHashIndex ++;
@@ -77,19 +83,19 @@ dictEntry *
 newEntry(void *key, void *value) {
     dictEntry *item;
     item = zmalloc(sizeof(*item));
-    item->key = strdup(key);
-    item->value = strdup(value);
+    item->key = key;
+    item->value = value;
     return item;
 }
 
 void
 deleteEntry(dictEntry *entry) {
-    free(entry->key);
-    free(entry->value);
+    // free(entry->key);
+    // free(entry->value);
     free(entry);
 }
 
-// 使用 rehash 的方法
+// 使用 rehash 的方式
 static int 
 ht_get_hash(const char* s, const int num_buckets, const int attempt) {
     const int hash_a = ht_hash(s, HT_PRIME_1, num_buckets);
