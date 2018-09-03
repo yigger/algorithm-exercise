@@ -7,14 +7,19 @@
 
 static dictEntry HS_DELETED_ITEM = { NULL, NULL };
 
-dictht *
+static dictht *
 createDict() {
+    return newDict(HT_INITIAL_BASE_SIZE);
+}
+
+static dictht*
+newDict(const int hsSize) {
     dictht *dictht;
     if ((dictht = zmalloc(sizeof(*dictht))) == NULL) {
         return NULL;
     }
 
-    dictht->size = 53;
+    dictht->size = hsSize;
     dictht->count = 0;
     dictht->table = calloc((size_t)dictht->size, sizeof(dictEntry *));
     return dictht;
@@ -22,6 +27,11 @@ createDict() {
 
 int *
 dictAdd(dictht *dict, void *key, void *val) {
+    const resize_rate = dict->count * 100 / dict->size;
+    if (resize_rate > 70) {
+        resize_up(dict);
+    }
+
     dictEntry *entry = newEntry(key, val);
     int index = ht_get_hash(entry->key, dict->size, 0);
     dictEntry *curEntry = dict->table[index];
@@ -49,8 +59,10 @@ dictSearch(dictht *dict, const char *key) {
     int findHashIndex = 0;
     dictEntry *curEntry = dict->table[index];
     while(curEntry != NULL) {
-        if (curEntry != &HS_DELETED_ITEM && strcmp((char *)curEntry->key, key) == 0) {
-            return (char *)curEntry->value;
+        if (curEntry != &HS_DELETED_ITEM) {
+			if (strcmp((char*)curEntry->key, key) == 0) {
+				return (char *)curEntry->value;
+			}
         }
         findHashIndex ++;
         index = ht_get_hash(key, dict->size, findHashIndex);
@@ -60,6 +72,11 @@ dictSearch(dictht *dict, const char *key) {
 }
 
 void dictDeleteKey(dictht *dict, const char *key) {
+    const resize_rate = dict->count * 100 / dict->size;
+    if (resize_rate < 10) {
+        resize_down(dict);
+    }
+
     int index = ht_get_hash(key, dict->size, 0);
     int findHashIndex = 0;
     dictEntry *curEntry = dict->table[index];
@@ -69,7 +86,7 @@ void dictDeleteKey(dictht *dict, const char *key) {
                 // 释放空间
                 deleteEntry(curEntry);
                 // 标记该位置已被删除
-                dict->table[findHashIndex] = &HS_DELETED_ITEM;
+                dict->table[index] = &HS_DELETED_ITEM;
             }
         }
         findHashIndex ++;
@@ -116,4 +133,46 @@ ht_hash(const char* s, const int a, const int m) {
         hash = hash % m;
     }
     return (int)hash;
+}
+
+void
+resize_up (dictht *dict) {
+    const int new_size = dict->size * 2;
+    dictReSize(dict, new_size);
+}
+
+void
+resize_down (dictht *dict) {
+    const int new_size = dict->size / 2;
+    dictReSize(dict, new_size);
+}
+
+static void
+dictReSize(dictht *dict, const int reSize) {
+    if (reSize < HT_INITIAL_BASE_SIZE) {
+        return;
+    }
+    dictht *tempDict = newDict(reSize);
+    for(int i = 0; i < dict->size; ++i) {
+        dictEntry *entry = dict->table[i];
+        if (entry != NULL && entry != &HS_DELETED_ITEM) {
+            dictAdd(tempDict, entry->key, entry->value);
+        }
+    }
+
+    const int temp_size = dict->size;
+    dict->size = tempDict->size;
+    tempDict->size = temp_size;
+    
+    dictEntry **temp_entry = dict->table;
+    dict->table = tempDict->table;
+    tempDict->table = temp_entry;
+    deleteDict(tempDict);
+}
+
+void deleteDict(dictht *dict) {
+    for(int i = 0; i < dict->size; i++) {
+        deleteEntry(dict->table[i]);
+    }
+    free(dict);
 }
