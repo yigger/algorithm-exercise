@@ -173,4 +173,5 @@ preOrderTraverse(Node *node) {
     // }
     preOrderTraverse(node->left);
     preOrderTraverse(node->right);
+	printf("\n");
 }

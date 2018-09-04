@@ -26,8 +26,8 @@ typedef struct dictht {
     unsigned long count;
 } dictht;
 
-static dictht *createDict();
-static dictht *newDict();
+dictht *createDict();
+static dictht *newDict(const int hsSize);
 static void dictReSize(dictht *dict, const int reSize);
 int *dictAdd(dictht *dict, void *key, void *val);
 char *dictSearch(dictht *dict, const char *key);

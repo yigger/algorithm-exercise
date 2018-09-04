@@ -7,7 +7,7 @@
 
 static dictEntry HS_DELETED_ITEM = { NULL, NULL };
 
-static dictht *
+dictht *
 createDict() {
     return newDict(HT_INITIAL_BASE_SIZE);
 }
@@ -37,7 +37,7 @@ dictAdd(dictht *dict, void *key, void *val) {
     dictEntry *curEntry = dict->table[index];
     int i = 1;
     while (curEntry != NULL) {
-        if (curEntry != &HS_DELETED_ITEM && strcmp((char *)curEntry->key, key) == 0) {
+        if (curEntry != &HS_DELETED_ITEM && strcmp((char *)curEntry->key, (char *)key) == 0) {
             // 如果已经存在了同样的键，则覆盖它的值
             deleteEntry(curEntry);
             dict->table[index] = entry;

@@ -1,6 +1,7 @@
 ﻿#include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #include "../lib/helper.h"
 #include "../lib/sort.h"
@@ -10,7 +11,7 @@
 int main() {
 	int array[] = {12, 25, 36, 20, 15, 16, 10, 8, 5, 3};
 	// 排序相关
-	printf("\n-----------排序相关--------------\n");
+	puts("-----------排序相关--------------");
 	chose_sort(array, ARR_LENGTH);
 	bubble_sort(array, ARR_LENGTH);
 	insert_sort(array, ARR_LENGTH);
@@ -20,7 +21,7 @@ int main() {
 	quick_sort(array, ARR_LENGTH);
 
 	// 二叉树相关
-	printf("\n-----------二叉树相关--------------\n");
+	puts("-----------二叉树相关--------------");
 	Tree *tree = initTree();
 	tree->compare = &compareInt;
 	int treeArray[10] = {12, 25, 36, 20, 15, 16, 10, 8, 5, 3};
@@ -32,7 +33,7 @@ int main() {
 	preOrderTraverse(tree->root);
 
 	// 双端链表相关
-	printf("\n-----------双端链表相关--------------\n");
+	puts("-----------双端链表相关--------------");
 	list *list;
 	int linkArray[10] = {12, 25, 36, 20, 15, 16, 10, 8, 5, 3};
 	list = listCreate();
@@ -60,14 +61,21 @@ int main() {
 	}
 	printf("\n元素寻找结果 - %d\n", (*(int *) listSearchKey(list, &insertVal)->value));
 
-	// 字典
+	puts("-----------字典相关， 使用 rehash 实现--------------");
 	dictht *dict;
 	dict = createDict();
-	char *key[] = {"hs-01", "hs-02", "hs-03"};
-	char *value[] = {"25", "haai", "sssa"};
-	for(int i = 0;i < 3; ++i) {
+	char *key[128];
+	char *value[128];
+	for(int i = 0;i < 128; ++i) {
+		char str_key[20];
+		char str_value[20];
+		sprintf(str_key, "key_%d_dict", i);
+		key[i] = str_key;
+		sprintf(str_value, "value_%d_dict", i);
+		value[i] = str_value;
 		dictAdd(dict, key[i], value[i]);
 	}
+
 	printf("已成功添加 %d 个hash\n", dict->count);
 
 	dictSearch(dict, key[0]);
