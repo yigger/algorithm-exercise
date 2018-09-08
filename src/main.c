@@ -8,9 +8,12 @@
 #include "../lib/tree.h"
 #include "../lib/link.h"
 #include "../lib/dict.h"
-int main() {
-	int array[] = {12, 25, 36, 20, 15, 16, 10, 8, 5, 3};
-	// 排序相关
+#include "../lib/redblack_tree.h"
+
+int array[] = {12, 25, 36, 20, 15, 16, 10, 8, 5, 3};
+
+// 排序相关
+void testSort() {
 	puts("-----------排序相关--------------");
 	chose_sort(array, ARR_LENGTH);
 	bubble_sort(array, ARR_LENGTH);
@@ -19,9 +22,9 @@ int main() {
 	shell_sort(array, ARR_LENGTH);
 	merge_sort(array, ARR_LENGTH);
 	quick_sort(array, ARR_LENGTH);
+}
 
-	// 二叉树相关
-	puts("-----------二叉树相关--------------");
+void testBinaryTree() {
 	Tree *tree = initTree();
 	tree->compare = &compareInt;
 	int treeArray[10] = {12, 25, 36, 20, 15, 16, 10, 8, 5, 3};
@@ -31,9 +34,9 @@ int main() {
 	// Node *findNode = search(tree, &array[5]);
 	deleteNode(tree, tree->root, &treeArray[1]);
 	preOrderTraverse(tree->root);
+}
 
-	// 双端链表相关
-	puts("-----------双端链表相关--------------");
+void testLink() {
 	list *list;
 	int linkArray[10] = {12, 25, 36, 20, 15, 16, 10, 8, 5, 3};
 	list = listCreate();
@@ -60,8 +63,9 @@ int main() {
 		node = node->next;
 	}
 	printf("\n元素寻找结果 - %d\n", (*(int *) listSearchKey(list, &insertVal)->value));
+}
 
-	puts("-----------字典相关， 使用 rehash 实现--------------");
+void testDict() {
 	dictht *dict;
 	dict = createDict();
 	char *key[128];
@@ -87,9 +91,46 @@ int main() {
 	puts("删除第一个元素");
 	dictDeleteKey(dict, key[0]);
 	printf("查询 %s, 结果：%s\n", key[0], dictSearch(dict, key[0]));
-	
-	
+}
 
+void testRedBlackTree() {
+	RedBlackTree *tree = initTree();
+
+}
+
+int main() {
+	int startNumber;
+	puts("----------------- Alogrithm ------- author: young -------");
+	puts("1. 排序");
+	puts("2. 二叉树");
+	puts("3. 双端链表");
+	puts("4. 字典");
+	puts("5. 红黑树");
+	printf("请输入：");
+	// scanf("%d", &startNumber);
+	startNumber = 5;
+	switch(startNumber) {
+		case 1: {
+			testSort();
+			break;
+		}
+		case 2: {
+			testBinaryTree();
+			break;
+		}
+		case 3: {
+			testLink();
+			break;
+		}
+		case 4: {
+			testDict();
+			break;
+		}
+		case 5: {
+			testRedBlackTree();
+			break;
+		}
+	}
 
 	getchar();
 	return 0;
