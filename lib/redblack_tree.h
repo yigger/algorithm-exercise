@@ -1,16 +1,19 @@
 #ifndef __REDBLACK_TREE__
 #define __REDBLACK_TREE__
 
-typedef struct rbNode {
+#define Red 1
+#define Black 0
+
+typedef struct RedBlackNode {
     void *value;
-    struct rbNode *left;
-    struct rbNode *right;
-    int color;
-} rbNode;
+    struct RedBlackNode *left;
+    struct RedBlackNode *right;
+    int color; // 红色： 1 黑色： 0
+} RedBlackNode;
 
 typedef struct RedBlackTree{
     // 根节点
-    rbNode *root;
+    RedBlackNode *root;
 
     // 节点数量
     int nodeSize;
@@ -19,10 +22,11 @@ typedef struct RedBlackTree{
     int(*compare)(void *, void *);
 } RedBlackTree;
 
-RedBlackTree *initTree();
-static rbNode *initNode();
-rbNode *addNode(void *key, void *val);
-rbNode *deleteNode(void *key);
-rbNode *searchNode(void *key);
+RedBlackTree *initRedBlackTree();
+static RedBlackNode *initNode(void *value);
+RedBlackTree *rbAddNode(RedBlackTree *tree, void *val);
+RedBlackNode *rbDeleteNode(RedBlackTree *tree);
+RedBlackNode *dbSearchNode(RedBlackTree *tree);
+static int isRed(RedBlackNode node);
 
 #endif

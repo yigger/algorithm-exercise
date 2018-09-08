@@ -94,7 +94,10 @@ void testDict() {
 }
 
 void testRedBlackTree() {
-	RedBlackTree *tree = initTree();
+	int arr[] = {25, 12, 53, 45, 32, 36, 35, 63, 23, 124};
+	RedBlackTree *tree = initRedBlackTree();
+	tree->compare = &compareInt;
+	rbAddNode(tree, &arr[0]);
 
 }
 
@@ -106,7 +109,7 @@ int main() {
 	puts("3. 双端链表");
 	puts("4. 字典");
 	puts("5. 红黑树");
-	printf("请输入：");
+	// printf("请输入：");
 	// scanf("%d", &startNumber);
 	startNumber = 5;
 	switch(startNumber) {
