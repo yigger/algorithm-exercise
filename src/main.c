@@ -9,6 +9,7 @@
 #include "../lib/link.h"
 #include "../lib/dict.h"
 #include "../lib/redblack_tree.h"
+#include "../lib/graph.h"
 
 int array[] = {12, 25, 36, 20, 15, 16, 10, 8, 5, 3};
 
@@ -98,6 +99,11 @@ void testRedBlackTree() {
 	RedBlackTree *tree = initRedBlackTree();
 	tree->compare = &compareInt;
 	rbAddNode(tree, &arr[0]);
+}
+
+void testGraph() {
+	Graph g;
+	createGraph(&g);
 
 }
 
@@ -109,9 +115,10 @@ int main() {
 	puts("3. 双端链表");
 	puts("4. 字典");
 	puts("5. 红黑树");
+	puts("6. 图");
 	// printf("请输入：");
 	// scanf("%d", &startNumber);
-	startNumber = 5;
+	startNumber = 6;
 	switch(startNumber) {
 		case 1: {
 			testSort();
@@ -131,6 +138,10 @@ int main() {
 		}
 		case 5: {
 			testRedBlackTree();
+			break;
+		}
+		case 6: {
+			testGraph();
 			break;
 		}
 	}
