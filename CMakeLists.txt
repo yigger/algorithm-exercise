@@ -9,14 +9,14 @@ project (Algorithm)
 
 # 添加子目录
 add_subdirectory(lib)
-add_subdirectory(src)
+# add_subdirectory(src)
 add_subdirectory(test)
 
 # 指定生成目标
-add_executable(algorithm src/main.c)
+# add_executable(algorithm src/main.c)
 
 # 添加链接库
-target_link_libraries(algorithm COMMONFUNC)
-target_link_libraries(algorithm MAINFUNC)
+# target_link_libraries(algorithm COMMONFUNC)
+# target_link_libraries(algorithm MAINFUNC)
 
-install (TARGETS algorithm DESTINATION ./build/bin)
+# install (TARGETS algorithm DESTINATION ./build/bin)

@@ -101,12 +101,12 @@ void testRedBlackTree() {
 	rbAddNode(tree, &arr[0]);
 }
 
-void testGraph() {
-	Graph g;
-	createGraph(&g, 12);
-	// int arr[2][2] = { {1, 2}, {2, 3} };
-	// addEdge(&g, arr, 2);
-}
+// void testGraph() {
+// 	Graph g;
+// 	createGraph(&g, 12);
+// 	// int arr[2][2] = { {1, 2}, {2, 3} };
+// 	// addEdge(&g, arr, 2);
+// }
 
 int main() {
 	int startNumber;
@@ -119,7 +119,7 @@ int main() {
 	puts("6. 图");
 	// printf("请输入：");
 	// scanf("%d", &startNumber);
-	startNumber = 6;
+	startNumber = 5;
 	switch(startNumber) {
 		case 1: {
 			testSort();
@@ -141,10 +141,10 @@ int main() {
 			testRedBlackTree();
 			break;
 		}
-		case 6: {
-			testGraph();
-			break;
-		}
+		// case 6: {
+		// 	testGraph();
+		// 	break;
+		// }
 	}
 
 	getchar();
