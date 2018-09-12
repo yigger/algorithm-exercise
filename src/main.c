@@ -103,8 +103,9 @@ void testRedBlackTree() {
 
 void testGraph() {
 	Graph g;
-	createGraph(&g);
-
+	createGraph(&g, 12);
+	// int arr[2][2] = { {1, 2}, {2, 3} };
+	// addEdge(&g, arr, 2);
 }
 
 int main() {

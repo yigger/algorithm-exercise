@@ -1,31 +1,32 @@
 ﻿#ifndef __GRAPH_H
 #define __GRAPH_H
 
-typedef char vertexType;
+typedef int vertexType;
 typedef enum STATE StatusCode;
 
 // 边
 typedef struct EdgeNode {
-    int adjvex;
+    vertexType adjvex;
     struct EdgeNode *next;
 } EdgeNode;
 
 // 顶点节点
 typedef struct {
-    vertexType vertex;
+    // vertexType data;
     EdgeNode *firstedge;
 } VertexNode;
 
 typedef struct Graph {
-    VertexNode **list;
+    VertexNode *list;
     // 顶点数
-    int nodeSize;
+    int V;
     // 边数
-    int edgeSize;
+    int E;
 } Graph;
 
-StatusCode createGraph(Graph *g);
-StatusCode addEdge(Graph *g);
+StatusCode createGraph(Graph *g, VertexNode v);
+EdgeNode *addNewNode(vertexType data);
+StatusCode addEdge(Graph *g, VertexNode src, VertexNode dest);
 
 
 #endif
