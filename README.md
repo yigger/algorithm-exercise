@@ -5,13 +5,14 @@
 ## Install
 ```
 // 使用 cmake 生成 makefile 文件
-cmake .
+mkdir build
 
-// 编译生成可执行程序
+cmake ..
+
 make
 
-// 走你
-./algorithm
+// 测试
+make test
 ```
 
 ### 排序算法
