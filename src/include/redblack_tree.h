@@ -27,6 +27,6 @@ static RedBlackNode *initNode(void *value);
 RedBlackTree *rbAddNode(RedBlackTree *tree, void *val);
 RedBlackNode *rbDeleteNode(RedBlackTree *tree);
 RedBlackNode *dbSearchNode(RedBlackTree *tree);
-static int isRed(RedBlackNode node);
+// static int isRed(RedBlackNode node);
 
 #endif

@@ -1,5 +1,5 @@
-﻿#include "./redblack_tree.h"
-#include "./helper.h"
+﻿#include "redblack_tree.h"
+#include "helper.h"
 #include <stdlib.h>
 
 RedBlackTree *
@@ -40,7 +40,7 @@ rbAddNode(RedBlackTree *tree, void *value) {
     return tree;
 }
 
-static int
-isRed(RedBlackNode node) {
-	return node.color == Red;
-}
+// static int
+// isRed(RedBlackNode node) {
+// 	return node.color == Red;
+// }

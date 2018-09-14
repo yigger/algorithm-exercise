@@ -1,5 +1,5 @@
-﻿#include "./graph.h"
-#include "./helper.h"
+﻿#include "graph.h"
+#include "helper.h"
 #include <stdlib.h>
 
 #define NODE_INIT_SIZE 16
@@ -17,9 +17,9 @@ StatusCode createGraph(Graph *g, int v) {
     return OK;
 }
 
-StatusCode addEdge(Graph *g, vertexType src, vertexType dest) {
+// StatusCode addEdge(Graph *g, vertexType src, vertexType dest) {
     
-}
+// }
 
 EdgeNode *
 addNewNode(vertexType data) {

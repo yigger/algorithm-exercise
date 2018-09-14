@@ -1,22 +1,18 @@
+# 项目信息
+project (algorithm)
+
 # CMake 最低版本号要求
 cmake_minimum_required (VERSION 2.8)
 
+set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
+
 enable_language(C)
+enable_language(CXX)
+
+set(CFLAGS "-Wall -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CFLAGS}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CFLAGS}")
 enable_testing()
 
-# 项目信息
-project (Algorithm)
-
-# 添加子目录
-add_subdirectory(lib)
-# add_subdirectory(src)
+add_subdirectory(src)
 add_subdirectory(test)
-
-# 指定生成目标
-# add_executable(algorithm src/main.c)
-
-# 添加链接库
-# target_link_libraries(algorithm COMMONFUNC)
-# target_link_libraries(algorithm MAINFUNC)
-
-# install (TARGETS algorithm DESTINATION ./build/bin)

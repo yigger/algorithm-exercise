@@ -1,5 +1,5 @@
-﻿#include "./dict.h"
-#include "./helper.h"
+﻿#include "dict.h"
+#include "helper.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,7 +27,7 @@ newDict(const int hsSize) {
 
 int *
 dictAdd(dictht *dict, void *key, void *val) {
-    const resize_rate = dict->count * 100 / dict->size;
+    const int resize_rate = dict->count * 100 / dict->size;
     if (resize_rate > 70) {
         resize_up(dict);
     }
@@ -72,7 +72,7 @@ dictSearch(dictht *dict, const char *key) {
 }
 
 void dictDeleteKey(dictht *dict, const char *key) {
-    const resize_rate = dict->count * 100 / dict->size;
+    const int resize_rate = dict->count * 100 / dict->size;
     if (resize_rate < 10) {
         resize_down(dict);
     }

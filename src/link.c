@@ -1,5 +1,5 @@
-﻿#include "./helper.h"
-#include "./link.h"
+﻿#include "helper.h"
+#include "link.h"
 #include <stdlib.h>
 
 // 初始化双端链表
