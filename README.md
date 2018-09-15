@@ -1,19 +1,6 @@
 ## 算法练习（C）
 
-此仓库是本人在看《算法》一书的过程中进行调试的代码，代码用的是 C 语言，主要涉及到以下算法：
-
-## Install
-```
-// 使用 cmake 生成 makefile 文件
-mkdir build
-
-cmake ..
-
-make
-
-// 测试
-make test
-```
+> 此仓库是本人在看《算法》一书的过程中进行调试的代码，代码用的是 C 语言，主要涉及到以下算法：
 
 ### 排序算法
 + 选择排序
@@ -42,6 +29,8 @@ make test
 + 二叉树的先序遍历
 
 ### 字典
+字典的哈希实现主要是参考[write-a-hash-table](jamesroutley/write-a-hash-table)，原作者写得挺好的，通俗易懂，所以我花了点时间把这篇文章翻译成了中文版：[young/write-a-hash-table](https://github.com/yigger/write-a-hash-table/blob/master/.translations/cn/README.md)
+
 + 字典创建
 + 新增键值对
 + 修改相应的键的值
@@ -50,6 +39,17 @@ make test
 + 字典扩容与缩减容量
 + 计算 hashcode
 
+### 测试相关
++ [Cpputest](#使用 cpputest 测试 C 语言)
+
+## 执行
+```
+mkdir build
+
+cmake ..
+
+make && make test
+```
 
 ### 使用 cpputest 测试 C 语言
 > cpputest 是一个用于测试 c++ 的库，但是同时也支持 C 的单元测试，用法也是十分简单，安装就不介绍了，请移步到 https://github.com/cpputest/cpputest
