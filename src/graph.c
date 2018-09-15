@@ -1,5 +1,5 @@
 ﻿#include "graph.h"
-#include "helper.h"
+#include "common.h"
 #include <stdlib.h>
 
 #define NODE_INIT_SIZE 16

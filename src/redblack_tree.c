@@ -1,5 +1,5 @@
 ﻿#include "redblack_tree.h"
-#include "helper.h"
+#include "common.h"
 #include <stdlib.h>
 
 RedBlackTree *

@@ -1,6 +1,6 @@
 ﻿#include <stdio.h>
 #include <math.h>
-#include "helper.h"
+#include "common.h"
 #define PREFIX_SIZE (0)
 
 void *zmalloc(size_t size) {

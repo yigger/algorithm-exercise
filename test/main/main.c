@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "../lib/helper.h"
+#include "../lib/common.h"
 #include "../lib/sort.h"
 #include "../lib/tree.h"
 #include "../lib/link.h"
