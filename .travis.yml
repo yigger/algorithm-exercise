@@ -11,9 +11,9 @@ addons:
       - libc++-dev
 
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y cmake && sudo apt-get install -y cpputest && sudo apt-get install -y gcc && sudo apt-get install -y libcpputest-dev && sudo apt-get install -y clang
-  - sudo apt-get install -y pkg-config
+  - sudo apt-get update
+  - sudo apt-get install -y cmake && sudo apt-get install -y cpputest && sudo apt-get install -y gcc && sudo apt-get install -y libcpputest-dev && sudo apt-get install -y clang && sudo apt-get install -y pkg-config
+
 script:
   - mkdir build
   - cd build

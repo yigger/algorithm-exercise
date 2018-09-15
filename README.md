@@ -49,3 +49,74 @@ make test
 + 删除键
 + 字典扩容与缩减容量
 + 计算 hashcode
+
+
+### 使用 cpputest 测试 C 语言
+> cpputest 是一个用于测试 c++ 的库，但是同时也支持 C 的单元测试，用法也是十分简单，安装就不介绍了，请移步到 https://github.com/cpputest/cpputest
+
+下面通过本项目简单介绍一下怎么进行测试
+
+1. 在根路径下创建一个文件夹， `mkdir test`
+2. 创建测试文件 grapTest.cpp ，下面会用来测试图的相关函数
+3. 创建文件 graph_test.c 
+```
+file: graph_test.c
+// 需要引入
+#include "CppUTest/TestHarness_c.h"
+// 引入需要的头文件
+#include "graph.h"
+
+// 定义待测试的变量
+static Graph graph;
+static int stat;
+
+// 定义测试组为 GraphTest 的 before_script (有需要可定义，无需要不定义也可)
+TEST_GROUP_C_SETUP(GraphTest) {
+  // 以下代码将会在测试用例 调用前 执行
+  stat = createGraph(&graph);
+};
+
+// 定义测试组为 GraphTest 的 after_script (同上)
+TEST_GROUP_C_TEARDOWN(GraphTest) {
+  // 在所有测试用例调用完 之后 执行
+  destroy(graph);
+};
+
+// 定义第一个测试，用来校验 graph 是否可以正常初始化
+TEST_C(GraphTest, InitGraph) {
+  // 创建一个图的数据结构
+  stat = createGraph(&graph);
+  // 判断是否创建成功
+  CHECK_EQUAL_C_INT(OK, stat);
+};
+```
+
+以上，已经定义好了我们的图数据结构的第一个测试用例，下面通过 graphTest.cpp 进行调用（因为 cpputest 属 c++ 框架，不能直接运行 graph_test.c）
+
+```
+file: graphTest.cpp
+// 引入 cpputest 所需文件
+#include "CppUTest/TestHarness_c.h"
+#include "CppUTest/CommandLineTestRunner.h"
+
+// 触发 graph_test.c 编写的 before_script / after_script
+TEST_GROUP_C_WRAPPER(GraphTest) {
+  TEST_GROUP_C_SETUP_WRAPPER(GraphTest);
+  TEST_GROUP_C_TEARDOWN_WRAPPER(GraphTest);
+};
+
+// 触发 graph_test.c 编写的 InitGraph 测试用例
+TEST_C_WRAPPER(GraphTest, InitGraph);
+
+// 如果需要定义更多，在下面继续编写就可以了，但需要先到 graph_test.c 进行编写相应的测试
+TEST_C_WRAPPER(GraphTest, addNode);
+TEST_C_WRAPPER(GraphTest, addEdge);
+...
+
+// 最后，执行所有测试
+int main(int argc, char **argv)
+{
+  return RUN_ALL_TESTS(argc, argv);
+}
+
+```

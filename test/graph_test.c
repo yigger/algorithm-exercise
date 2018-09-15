@@ -1,17 +1,19 @@
 #include "CppUTest/TestHarness_c.h"
+#include <stdio.h>
+#include "common.h"
+#include "graph.h"
 
-TEST_GROUP_C_SETUP(ArrayTestsWithDefaults)
+static Graph graph;
+static int stat;
+
+// TEST_GROUP_C_SETUP(GraphTest) {};
+
+// TEST_GROUP_C_TEARDOWN(GraphTest){};
+
+TEST_C(GraphTest, InitGraph)
 {
-
-}
-
-TEST_GROUP_C_TEARDOWN(ArrayTestsWithDefaults)
-{
-
-}
-
-TEST_C(ArrayTestsWithDefaults, ArrayAdd)
-{
-    int a = 5;
-    CHECK_EQUAL_C_INT(a, 5);
+    stat = createGraph(&graph, 12);
+    CHECK_EQUAL_C_INT(OK, stat);
 };
+
+
