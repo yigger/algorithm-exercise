@@ -7,6 +7,8 @@ TEST_GROUP_C_WRAPPER(GraphTest) {
 };
 
 TEST_C_WRAPPER(GraphTest, InitGraph);
+TEST_C_WRAPPER(GraphTest, createEdge);
+TEST_C_WRAPPER(GraphTest, addEdgeToGraph);
 
 int main(int argc, char **argv)
 {

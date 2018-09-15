@@ -25,8 +25,8 @@ typedef struct Graph {
 } Graph;
 
 StatusCode createGraph(Graph *g, int v);
-EdgeNode *addNewNode(vertexType data);
-// StatusCode addEdge(Graph *g, vertexType src, vertexType dest);
+StatusCode addEdgeToGraph(Graph *g, vertexType src, vertexType dest);
+StatusCode createEdge(EdgeNode *node, vertexType data);
 
 
 #endif

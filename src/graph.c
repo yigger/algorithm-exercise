@@ -17,18 +17,32 @@ StatusCode createGraph(Graph *g, int v) {
     return OK;
 }
 
-// StatusCode addEdge(Graph *g, vertexType src, vertexType dest) {
-    
-// }
+StatusCode
+addEdgeToGraph(Graph *g, vertexType src, vertexType dest) {
+    EdgeNode destEdg, srcEdg;
+    if (src > g->V || dest > g->V) {
+        return ERROR;
+    }
 
-EdgeNode *
-addNewNode(vertexType data) {
-    EdgeNode *node;
+    createEdge(&destEdg, dest);
+    // 在当前顶点添加目标顶点到邻接表
+    destEdg.next = g->list[src].firstedge;
+    g->list[src].firstedge = &destEdg;
+    
+    createEdge(&srcEdg, src);
+    // 在目标顶点添加当前顶点到邻接表
+    srcEdg.next = g->list[dest].firstedge;
+    g->list[dest].firstedge = &srcEdg;
+    return OK;
+}
+
+StatusCode
+createEdge(EdgeNode *node, vertexType data) {
     if((node = zmalloc(sizeof(EdgeNode *))) == NULL) {
-        return NULL;
+        return MALLOC_ERR;
     }
 
     node->adjvex = data;
     node->next = NULL;
-    return node;
+    return OK;
 }
