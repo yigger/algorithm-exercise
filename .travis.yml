@@ -4,14 +4,12 @@ sudo: required
 
 compiler:
   - gcc
-  
+
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
     packages:
-      - libstdc++-5-dev
-      
+      - libc++-dev
+
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y cmake && sudo apt-get install -y cpputest && sudo apt-get install -y gcc && sudo apt-get install -y libcpputest-dev && sudo apt-get install -y clang
