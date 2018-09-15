@@ -4,10 +4,15 @@ sudo: required
 
 compiler:
   - gcc
-
+  
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libstdc++-5-dev
+      
 before_install:
-  - sudo add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu bionic main"
-  - sudo add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu bionic universe"
   - sudo apt-get -qq update
   - sudo apt-get install -y cmake && sudo apt-get install -y cpputest && sudo apt-get install -y gcc && sudo apt-get install -y pkg-config
 script:
