@@ -40,7 +40,8 @@
 + 计算 hashcode
 
 ### 测试相关
-[Cpputest](#使用 cpputest 测试 C 语言)
+
+[Cpputest](#user-content-使用-cpputest-测试-c-语言)
 
 ## 执行
 ```
