@@ -12,7 +12,7 @@ initRedBlackTree() {
     return tree;
 }
 
-static RedBlackNode *
+RedBlackNode *
 initNode(void *value) {
     RedBlackNode *node;
     if((node = zmalloc(sizeof(*node))) == NULL) {

@@ -19,7 +19,7 @@ StatusCode createGraph(Graph *g, int v) {
 
 StatusCode
 addEdgeToGraph(Graph *g, vertexType src, vertexType dest) {
-    EdgeNode destEdg, srcEdg;
+    EdgeNode destEdg;
     if (src > g->V || dest > g->V) {
         return ERROR;
     }
@@ -29,10 +29,11 @@ addEdgeToGraph(Graph *g, vertexType src, vertexType dest) {
     destEdg.next = g->list[src].firstedge;
     g->list[src].firstedge = &destEdg;
     
-    createEdge(&srcEdg, src);
-    // 在目标顶点添加当前顶点到邻接表
-    srcEdg.next = g->list[dest].firstedge;
-    g->list[dest].firstedge = &srcEdg;
+    // EdgeNode srcEdg;
+    // createEdge(&srcEdg, src);
+    // // 在目标顶点添加当前顶点到邻接表
+    // srcEdg.next = g->list[dest].firstedge;
+    // g->list[dest].firstedge = &srcEdg;
     return OK;
 }
 

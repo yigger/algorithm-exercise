@@ -27,13 +27,13 @@ typedef struct dictht {
 } dictht;
 
 dictht *createDict();
-static dictht *newDict(const int hsSize);
-static void dictReSize(dictht *dict, const int reSize);
+dictht *newDict(const int hsSize);
+void dictReSize(dictht *dict, const int reSize);
 int *dictAdd(dictht *dict, void *key, void *val);
 char *dictSearch(dictht *dict, const char *key);
 dictEntry *newEntry(void *key, void *value);
-static int ht_hash(const char* s, const int a, const int m);
-static int ht_get_hash(const char* s, const int num_buckets, const int attempt);
+int ht_hash(const char* s, const int a, const int m);
+int ht_get_hash(const char* s, const int num_buckets, const int attempt);
 
 void resize_up (dictht *dict);
 void resize_down (dictht *dict);

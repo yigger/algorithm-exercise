@@ -12,7 +12,7 @@ createDict() {
     return newDict(HT_INITIAL_BASE_SIZE);
 }
 
-static dictht*
+dictht*
 newDict(const int hsSize) {
     dictht *dictht;
     if ((dictht = zmalloc(sizeof(*dictht))) == NULL) {
@@ -113,14 +113,14 @@ deleteEntry(dictEntry *entry) {
 }
 
 // 使用 rehash 的方式
-static int 
+int 
 ht_get_hash(const char* s, const int num_buckets, const int attempt) {
     const int hash_a = ht_hash(s, HT_PRIME_1, num_buckets);
     const int hash_b = ht_hash(s, HT_PRIME_2, num_buckets);
     return (hash_a + (attempt * (hash_b + 1))) % num_buckets;
 }
 
-static int
+int
 ht_hash(const char* s, const int a, const int m) {
     const int len_s = strlen(s);
     long hash = 0;
@@ -147,7 +147,7 @@ resize_down (dictht *dict) {
     dictReSize(dict, new_size);
 }
 
-static void
+void
 dictReSize(dictht *dict, const int reSize) {
     if (reSize < HT_INITIAL_BASE_SIZE) {
         return;

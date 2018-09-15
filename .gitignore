@@ -1,14 +1,6 @@
 .vs
 .vscode
 Debug/
-x64
-algorithm*
-*.o
 CMakeFiles/
 Makefile
-libCOMMONFUNC.a
-cmake_install.cmake
-libMAINFUNC.a
-CMakeCache.txt
-compile_commands.json
 build/

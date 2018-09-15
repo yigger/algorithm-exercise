@@ -23,7 +23,7 @@ typedef struct RedBlackTree{
 } RedBlackTree;
 
 RedBlackTree *initRedBlackTree();
-static RedBlackNode *initNode(void *value);
+RedBlackNode *initNode(void *value);
 RedBlackTree *rbAddNode(RedBlackTree *tree, void *val);
 RedBlackNode *rbDeleteNode(RedBlackTree *tree);
 RedBlackNode *dbSearchNode(RedBlackTree *tree);

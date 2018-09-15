@@ -43,10 +43,9 @@ int less(int num1, int num2) {
 	}
 }
 
-int compareInt(const void *a, const void *b) 
-{
-	int x = *(const int *)a;
-	int y = *(const int *)b;
+int compareInt(void *a, void *b) {
+	int x = *(int *)a;
+	int y = *(int *)b;
 	if (x < y) {
 		return -1;
 	}
