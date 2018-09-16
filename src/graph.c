@@ -1,6 +1,6 @@
-﻿#include "graph.h"
+﻿#include <stdio.h>
+#include "graph.h"
 #include "common.h"
-#include <stdlib.h>
 
 #define NODE_INIT_SIZE 16
 
@@ -25,9 +25,10 @@ addEdgeToGraph(Graph *g, vertexType src, vertexType dest) {
     }
 
     createEdge(&destEdg, dest);
+    printf("dest -> %d\n", destEdg.adjvex);
     // 在当前顶点添加目标顶点到邻接表
-    destEdg.next = g->list[src].firstedge;
-    g->list[src].firstedge = &destEdg;
+    // destEdg.next = g->list[src].firstedge;
+    // g->list[src].firstedge = &destEdg;
     
     // EdgeNode srcEdg;
     // createEdge(&srcEdg, src);
@@ -39,10 +40,10 @@ addEdgeToGraph(Graph *g, vertexType src, vertexType dest) {
 
 StatusCode
 createEdge(EdgeNode *node, vertexType data) {
+    printf("in -> %d\n", data);
     if((node = zmalloc(sizeof(EdgeNode *))) == NULL) {
         return MALLOC_ERR;
     }
-
     node->adjvex = data;
     node->next = NULL;
     return OK;
