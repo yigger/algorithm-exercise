@@ -2,13 +2,13 @@
 #include "CppUTest/CommandLineTestRunner.h"
 
 TEST_GROUP_C_WRAPPER(GraphTest) {
-  // TEST_GROUP_C_SETUP_WRAPPER(GraphTest); /** optional */
-  // TEST_GROUP_C_TEARDOWN_WRAPPER(GraphTest);
+  TEST_GROUP_C_SETUP_WRAPPER(GraphTest);
+  TEST_GROUP_C_TEARDOWN_WRAPPER(GraphTest);
 };
 
-TEST_C_WRAPPER(GraphTest, InitGraph);
 TEST_C_WRAPPER(GraphTest, createEdge);
 TEST_C_WRAPPER(GraphTest, addEdgeToGraph);
+TEST_C_WRAPPER(GraphTest, addOverflowEdgeToGraph);
 
 int main(int argc, char **argv)
 {

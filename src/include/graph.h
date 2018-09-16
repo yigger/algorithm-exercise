@@ -19,14 +19,13 @@ typedef struct {
 typedef struct Graph {
     VertexNode *list;
     // 顶点数
-    int V;
+    int vertexSize;
     // 边数
-    int E;
+    int edgeSize;
 } Graph;
 
-StatusCode createGraph(Graph *g, int v);
+StatusCode createGraph(Graph **graph, int vertexSize);
 StatusCode addEdgeToGraph(Graph *g, vertexType src, vertexType dest);
-StatusCode createEdge(EdgeNode *node, vertexType data);
-
-
+StatusCode createEdge(EdgeNode **edge, int dest);
+void destroyGraph(Graph *graph);
 #endif
