@@ -5,7 +5,7 @@
 
 static Graph *graph;
 static int stat;
-static int edgeSize = 12;
+static int edgeSize = 4;
 
 TEST_GROUP_C_SETUP(GraphTest) {
     stat = createGraph(&graph, edgeSize);
@@ -23,7 +23,7 @@ TEST_C(GraphTest, createEdge) {
 };
 
 TEST_C(GraphTest, addEdgeToGraph) {
-    addEdgeToGraph(graph, 0, 5);
+    addEdgeToGraph(graph, 0, 3);
     CHECK_EQUAL_C_INT(OK, stat);
 };
 
@@ -32,4 +32,17 @@ TEST_C(GraphTest, addOverflowEdgeToGraph) {
     CHECK_EQUAL_C_INT(ERROR, stat);
 };
 
+TEST_C(GraphTest, dfs) {
+    addEdgeToGraph(graph, 0, 1);
+    addEdgeToGraph(graph, 0, 2);
+    addEdgeToGraph(graph, 1, 3);
+    addEdgeToGraph(graph, 2, 3);
+    int marked[4];
+
+    int *res = dfs(graph, 0, marked);
+    CHECK_EQUAL_C_INT(res[0], 0);
+    // CHECK_EQUAL_C_INT(res[1], 2);
+    // CHECK_EQUAL_C_INT(res[2], 3);
+    // CHECK_EQUAL_C_INT(res[3], 1);
+};
 

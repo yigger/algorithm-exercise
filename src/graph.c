@@ -52,6 +52,20 @@ createEdge(EdgeNode **edge, int dest) {
     return OK;
 }
 
+// 深度优先搜索
+int* dfs(const Graph * const g, int dest, int marked[]) {
+    marked[dest] = 1;
+    EdgeNode *edge = g->list[dest].firstedge;
+    
+    while(edge != NULL) {
+        if (marked[edge->adjvex] == 0) {
+            dfs(g, edge->adjvex, marked);
+        }
+        edge = edge->next;
+    }
+    return marked;
+}
+
 void destroyGraph(Graph *graph) {
     free(graph->list);
     free(graph);
