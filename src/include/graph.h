@@ -27,6 +27,6 @@ typedef struct Graph {
 StatusCode createGraph(Graph **graph, int vertexSize);
 StatusCode addEdgeToGraph(Graph *g, vertexType src, vertexType dest);
 StatusCode createEdge(EdgeNode **edge, int dest);
-int* dfs(const Graph * const g, int dest, int marked[]);
+int *iterator(const Graph * const graph, int dest, int type);
 void destroyGraph(Graph *graph);
 #endif

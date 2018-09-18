@@ -37,12 +37,9 @@ TEST_C(GraphTest, dfs) {
     addEdgeToGraph(graph, 0, 2);
     addEdgeToGraph(graph, 1, 3);
     addEdgeToGraph(graph, 2, 3);
-    int marked[4];
-
-    int *res = dfs(graph, 0, marked);
-    CHECK_EQUAL_C_INT(res[0], 0);
-    // CHECK_EQUAL_C_INT(res[1], 2);
-    // CHECK_EQUAL_C_INT(res[2], 3);
-    // CHECK_EQUAL_C_INT(res[3], 1);
+    int *res = iterator(graph, 0, 0);
+    for(int i = 0; i < graph->vertexSize; ++i) {
+        CHECK_EQUAL_C_INT(res[i], 1);
+    }
 };
 

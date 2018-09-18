@@ -3,6 +3,11 @@
 #include "common.h"
 
 #define NODE_INIT_SIZE 16
+#define BFS 0
+#define DFS 1
+
+static int *_dfs(const Graph * const g, int dest, int *marked);
+static int *_bfs(const Graph * const g, int dest, int *marked);
 
 StatusCode createGraph(Graph **graph, int vertexSize) {
     Graph *g;
@@ -52,18 +57,51 @@ createEdge(EdgeNode **edge, int dest) {
     return OK;
 }
 
+// 遍历
+int *
+iterator(const Graph * const graph, int dest, int type) {
+    int *marked;
+    if((marked = zcalloc(sizeof(int) * graph->vertexSize)) == NULL) {
+        return NULL;
+    }
+
+    if (type == BFS) {
+        return _dfs(graph, dest, marked);
+    } else if (type == DFS) {
+        return _bfs(graph, dest, marked);
+    } else {
+        free(marked);
+        return NULL;
+    }
+}
+
 // 深度优先搜索
-int* dfs(const Graph * const g, int dest, int marked[]) {
+static int *
+_dfs(const Graph * const g, int dest, int *marked) {
     marked[dest] = 1;
     EdgeNode *edge = g->list[dest].firstedge;
     
     while(edge != NULL) {
         if (marked[edge->adjvex] == 0) {
-            dfs(g, edge->adjvex, marked);
+            _dfs(g, edge->adjvex, marked);
         }
         edge = edge->next;
     }
     return marked;
+}
+
+// 广度优先搜索
+static int *
+_bfs(const Graph * const g, int dest, int *marked) {
+    // marked[dest] = 1;
+    // for(int i = 0; i < g->vertexSize; i ++) {
+    //     if (marked[i] == 0) {
+    //         marked[i] = 1;
+    //     }
+
+    // }
+
+    return NULL;
 }
 
 void destroyGraph(Graph *graph) {
