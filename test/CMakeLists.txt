@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 2.8)
 project(alogrithm_test)
 
 find_package(PkgConfig)
-pkg_check_modules(CPPUTEST REQUIRED cpputest>=3.8)
+pkg_check_modules(CPPUTEST REQUIRED cpputest>=3.2)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CPPUTEST_C_FLAGS}")
 
