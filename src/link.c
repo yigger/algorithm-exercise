@@ -1,6 +1,6 @@
-﻿#include "common.h"
+﻿#include <stdlib.h>
 #include "link.h"
-#include <stdlib.h>
+#include "common.h"
 
 // 初始化双端链表
 // 注意：
@@ -161,6 +161,16 @@ enum STATE createNode(listNode **node, void *val) {
     out->value = val;
     *node = out;
     return OK;
+}
+
+// 删除一个节点
+void removeNode(listNode *node) {
+    listNode *prev = node->prev;
+    if (prev != NULL) {
+        node->prev = NULL;
+        prev->next = NULL;
+    }
+    free(node);
 }
 
 void listReleaseIterator(listIter *iter) {

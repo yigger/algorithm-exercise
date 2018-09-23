@@ -44,7 +44,7 @@ StatusCode stackPush(Stack *stack, void *val) {
 
 // 出栈
 StatusCode stackPop(Stack *stack, void **val) {
-    if (stack->len == 0 || stack->top == NULL) {
+    if (stack->len == 0) {
         return ERROR;
     }
     *val = stack->top->value;
@@ -61,7 +61,7 @@ StatusCode stackPop(Stack *stack, void **val) {
 }
 
 void destroyStack(Stack *stack) {
-    if (stack->len != 0) {
+    if (stack->len > 0) {
         listNode *node;
         node = stack->bottom;
         while(node) {

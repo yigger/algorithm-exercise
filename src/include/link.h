@@ -31,7 +31,7 @@ list *listAddNodeToTail(list *list, void *value);
 void listDelNode(list *list, listNode *node);
 listNode *listSearchKey(list *list, void *key);
 enum STATE createNode(listNode **node, void *val);
-
+void removeNode(listNode *node);
 listIter *listGetIterator(list *list, int direction);
 void listReleaseIterator(listIter *iter);
 listNode *listNext(listIter *iter);

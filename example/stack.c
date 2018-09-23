@@ -16,13 +16,13 @@ int main () {
     }
 
     printf("栈内元素： %ld\n", stack->len);
-    printf("栈顶指针： %d\n", (int)(*(int*)(stack->top->value)));
-    printf("栈底指针： %d\n", (int)(*(int*)(stack->bottom->value)));
+    printf("栈顶元素： %d\n", (int)(*(int*)(stack->top->value)));
+    printf("栈底元素： %d\n", (int)(*(int*)(stack->bottom->value)));
 
-    void *value;
+    int *value;
     for(int i = 0; i < sizeof(array)/sizeof(int); ++i) {
-        if (stackPop(stack, &value) == OK) {
-            printf("出栈： %d\n", (int)*(int*)value);
+        if (stackPop(stack, (void*)&value) == OK) {
+            printf("出栈： %d\n", *value);
         }
     }
 
