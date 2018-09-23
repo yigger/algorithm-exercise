@@ -150,6 +150,19 @@ listNode *listNext(listIter *iter) {
     return curNode;
 }
 
+// 创建新节点
+enum STATE createNode(listNode **node, void *val) {
+    listNode *out;
+    if ((out = zmalloc(sizeof(*out))) == NULL) {
+        return MALLOC_ERR;
+    }
+
+    out->prev = out->next = NULL;
+    out->value = val;
+    *node = out;
+    return OK;
+}
+
 void listReleaseIterator(listIter *iter) {
     zfree(iter);
 }

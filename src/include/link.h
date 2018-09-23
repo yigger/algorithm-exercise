@@ -1,6 +1,7 @@
 #ifndef __LINK_H
 #define __LINK_H
 
+#include "common.h"
 typedef struct listNode {
     struct listNode *prev;
     struct listNode *next;
@@ -29,6 +30,7 @@ list *listAddNodeToHead(list *list, void *value);
 list *listAddNodeToTail(list *list, void *value);
 void listDelNode(list *list, listNode *node);
 listNode *listSearchKey(list *list, void *key);
+enum STATE createNode(listNode **node, void *val);
 
 listIter *listGetIterator(list *list, int direction);
 void listReleaseIterator(listIter *iter);

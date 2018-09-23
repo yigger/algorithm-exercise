@@ -2,6 +2,7 @@ project(Example)
 
 include_directories(${PROJECT_NAME}_INCLUDE_DIRS ${alotrithm_lib_INCLUDE_DIRS})
 
+add_executable(stack stack.c)
 add_executable(sort sort.c)
 add_executable(tree binaryTree.c)
 add_executable(link link.c)
@@ -9,6 +10,7 @@ add_executable(dict dict.c)
 add_executable(redblacktree redblackTree.c)
 add_executable(graph graph.c)
 
+target_link_libraries(stack alotrithm_lib)
 target_link_libraries(sort alotrithm_lib)
 target_link_libraries(tree alotrithm_lib)
 target_link_libraries(link alotrithm_lib)
