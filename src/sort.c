@@ -3,6 +3,14 @@
 #include <time.h>
 #include "sort.h"
 #include "common.h"
+
+static void getResult(int *arr, int length) {
+	int i;
+	for (i = 0; i < length; i++) {
+		printf("Index(%d) - %d \n", i, arr[i]);
+	}
+}
+
 /*
 * 选择排序
 * 先设置一个最小值，然后在后面遍历过程中不断找出比预设值更小的值，与之交换

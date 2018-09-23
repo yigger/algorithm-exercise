@@ -9,7 +9,8 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 enable_language(C)
 
 set(CFLAGS "-Wall -Werror")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CFLAGS}")
+set(MODELFLAGS "-std=c99")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CFLAGS} ${MODELFLAGS}")
 enable_testing()
 
 add_subdirectory(src)

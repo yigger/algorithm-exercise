@@ -55,11 +55,6 @@ int compareInt(void *a, void *b) {
 	return 0;
 }
 
-void getResult(int *arr, int length) {
-	for (int i = 0; i < length; i++) {
-		printf("Index(%d) - %d \n", i, arr[i]);
-	}
-}
 int *copyArray(int *array) {
 	int *copy = (int *)malloc(ARR_LENGTH * sizeof(int));
 	for (int i = 0; i < ARR_LENGTH; ++i) {
