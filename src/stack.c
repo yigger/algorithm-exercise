@@ -23,6 +23,7 @@ int emptyStack(const Stack * const stack) {
     }
 }
 
+// 入栈
 StatusCode stackPush(Stack *stack, void *val) {
     listNode *node;
     if(createNode(&node, val) != OK) {
@@ -32,11 +33,30 @@ StatusCode stackPush(Stack *stack, void *val) {
     if (stack->len == 0) {
         stack->top = stack->bottom = node;
     } else {
-        stack->bottom->next = node;
+        stack->top->next = node;
+        node->prev = stack->top;
         stack->top = node;
     }
 
     stack->len ++;
+    return OK;
+}
+
+// 出栈
+StatusCode stackPop(Stack *stack, void **val) {
+    if (stack->len == 0 || stack->top == NULL) {
+        return ERROR;
+    }
+    *val = stack->top->value;
+    listNode *prev = NULL;
+    if (stack->top->prev != NULL) {
+        prev = stack->top->prev;
+        prev->next = NULL;
+        stack->top->prev = NULL;
+    }
+    free(stack->top);
+    stack->top = prev;
+    stack->len --;
     return OK;
 }
 

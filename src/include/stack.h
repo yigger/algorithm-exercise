@@ -19,5 +19,6 @@ typedef struct {
 StatusCode createStack(Stack **stack);
 int emptyStack(const Stack * const stack);
 StatusCode stackPush(Stack *stack, void *val);
+StatusCode stackPop(Stack *stack, void **val);
 void destroyStack(Stack *stack);
 #endif
