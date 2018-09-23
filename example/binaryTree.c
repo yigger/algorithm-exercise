@@ -1,6 +1,19 @@
 #include <stdio.h>
 #include "common.h"
 #include "tree.h"
+
+static int compareInt(void *a, void *b) {
+	int x = *(int *)a;
+	int y = *(int *)b;
+	if (x < y) {
+		return -1;
+	}
+	else if (x > y) {
+		return 1;
+	}
+	return 0;
+}
+
 int main() {
 	Tree *tree = initTree();
 	tree->compare = &compareInt;
