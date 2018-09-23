@@ -15,8 +15,8 @@ addons:
       - time
       - cpputest
       - pkg-config
-      - gcc-5
-      - g++-5
+      - gcc
+      - g++
 
 script:
   - mkdir build
