@@ -1,5 +1,7 @@
 ## 算法练习（C）
 
+[![Build Status](https://travis-ci.org/yigger/algorithm-exercise.svg?branch=master)](https://travis-ci.org/yigger/algorithm-exercise)
+
 > 此仓库是本人在看《算法》一书的过程中学习到的相关知识以及调试的代码库，代码主要用的是 C 语言，涉及以下算法：
 
 ### 排序算法
