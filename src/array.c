@@ -88,7 +88,11 @@ enum STATE arrayAddAt(Array *array, void *item, size_t index) {
     return OK;
 }
 
-// 浅拷贝。并不复制数据，只复制指向数据的指针，因此是多个指针指向同一份数据
+/**
+ * 浅拷贝。并不复制数据，只复制指向数据的指针，因此是多个指针指向同一份数据
+ * @params[array] 数组指针
+ * @params[out] 作为输出返回值
+*/
 enum STATE arrayCopyShallow(Array *array, Array **out) {
     Array *copy;
     copy = zmalloc(sizeof(copy));
@@ -105,6 +109,7 @@ enum STATE arrayCopyShallow(Array *array, Array **out) {
     copy->len = array->len;
     copy->used = array->used;
 
+    // 复制一份数组所有元素的地址
     memcpy(copy->items,
            array->items,
            sizeof(void *) * array->len);
@@ -115,7 +120,9 @@ enum STATE arrayCopyShallow(Array *array, Array **out) {
 
 /**
  * 深拷贝会复制原始数据，每个指针指向一份独立的数据
- *  
+ * @params[array] 数组指针
+ * @params[cp] 函数指针，用于复制元素的值
+ * @params[out] 作为输出返回值
 */
 enum STATE arrayCopyDeep(Array *array, void*(*cp)(void *), Array **out) {
     Array *copy;
@@ -124,15 +131,17 @@ enum STATE arrayCopyDeep(Array *array, void*(*cp)(void *), Array **out) {
         return MALLOC_ERR;
     }
 
-    copy->items = zmalloc(sizeof(void *) * array->len);
+    copy->items = zmalloc(sizeof(void *) * array->used);
     if (!copy->items) {
         zfree(copy);
         return MALLOC_ERR;
     }
 
-    copy->len = array->len;
+    copy->len = array->used;
     copy->used = array->used;
     for(int i = 0; i < array->used; ++i) {
+        // 如果有复制函数传入，则根据复制函数返回值，否则，按默认 int 类型进行复制值
+        // 当然，这是不严谨的，理论上应当强迫调用者输入复制处理函数
         if (cp) {
             copy->items[i] = cp(array->items[i]);
         } else {
@@ -200,6 +209,16 @@ static enum STATE expendArray(Array *array) {
     return OK;
 }
 
+/**
+ * 负数索引转换为有效的索引..
+ * eg:  array: 1, 3, 5, 7
+ *      index = -1, value = 7
+ *      index = -2, value = 5
+ *      index = -5, value = 7
+ * @params[array] 数组指针
+ * @params[index] 索引值
+ * @return index 返回索引值 
+*/
 static size_t indexAbs(Array *array, size_t index) {
     if (index == -1) {
         return array->used;
