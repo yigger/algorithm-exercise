@@ -88,6 +88,92 @@ enum STATE arrayAddAt(Array *array, void *item, size_t index) {
     return OK;
 }
 
+// 浅拷贝。并不复制数据，只复制指向数据的指针，因此是多个指针指向同一份数据
+enum STATE arrayCopyShallow(Array *array, Array **out) {
+    Array *copy;
+    copy = zmalloc(sizeof(copy));
+    if (!copy) {
+        return MALLOC_ERR;
+    }
+
+    copy->items = zmalloc(sizeof(void *) * array->len);
+    if (!copy->items) {
+        zfree(copy);
+        return MALLOC_ERR;
+    }
+
+    copy->len = array->len;
+    copy->used = array->used;
+
+    memcpy(copy->items,
+           array->items,
+           sizeof(void *) * array->len);
+
+    *out = copy;
+    return OK;
+}
+
+/**
+ * 深拷贝会复制原始数据，每个指针指向一份独立的数据
+ *  
+*/
+enum STATE arrayCopyDeep(Array *array, void*(*cp)(void *), Array **out) {
+    Array *copy;
+    copy = zmalloc(sizeof(Array *));
+    if (!copy) {
+        return MALLOC_ERR;
+    }
+
+    copy->items = zmalloc(sizeof(void *) * array->len);
+    if (!copy->items) {
+        zfree(copy);
+        return MALLOC_ERR;
+    }
+
+    copy->len = array->len;
+    copy->used = array->used;
+    for(int i = 0; i < array->used; ++i) {
+        if (cp) {
+            copy->items[i] = cp(array->items[i]);
+        } else {
+            int *value = (int*)malloc(sizeof(int));
+            *value = *((int*)array->items[i]);
+            copy->items[i] = value;
+        }
+    }
+
+    *out = copy;
+    return OK;
+}
+
+/**
+ * 移除数组中所有元素（伪）
+ * @params[array] 数组指针 
+*/
+void arrayRemoveAll(Array *array) {
+    array->used = 0;
+}
+
+/**
+ * 移除指定位置的元素
+ * @params[array] 数组指针
+ * @params[index] 索引值
+*/
+enum STATE arrayRemoveAt(Array *array, size_t index) {
+    index = indexAbs(array, index);
+    if (index < 0 || index > array->used) {
+        return ERROR;
+    }
+
+    size_t size = (array->len - index) * sizeof(int);
+    memmove(&(array->items[index]),
+            &(array->items[index+1]),
+            size);
+
+    array->used --;
+    return OK;
+}
+
 /**
  * 追加数组的容量， 每次默认增加 DEFAULT_LEN 的长度
  * @params[array] 数组指针
@@ -128,34 +214,6 @@ static size_t indexAbs(Array *array, size_t index) {
     }
 
     return index;
-}
-
-/**
- * 移除数组中所有元素（伪）
- * @params[array] 数组指针 
-*/
-void arrayRemoveAll(Array *array) {
-    array->used = 0;
-}
-
-/**
- * 移除指定位置的元素
- * @params[array] 数组指针
- * @params[index] 索引值
-*/
-enum STATE arrayRemoveAt(Array *array, size_t index) {
-    index = indexAbs(array, index);
-    if (index < 0 || index > array->used) {
-        return ERROR;
-    }
-
-    size_t size = (array->len - index) * sizeof(int);
-    memmove(&(array->items[index]),
-            &(array->items[index+1]),
-            size);
-
-    array->used --;
-    return OK;
 }
 
 /**

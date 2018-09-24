@@ -32,6 +32,9 @@ enum STATE arrayAddAt(Array *array, void *item, size_t index);
 void arrayRemoveAll(Array *array);
 enum STATE arrayRemoveAt(Array *array, size_t index);
 
+enum STATE arrayCopyShallow(Array *array, Array **out);
+enum STATE arrayCopyDeep(Array *array, void*(*cp)(void *), Array **out);
+
 void destroyArray(Array *array);
 
 #endif

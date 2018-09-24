@@ -1,11 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "array.h"
+
+static void printArray(Array *array) {
+    printf("-----start print---------\n");
+    for(int i = 0;i < array->used; ++i) {
+        printf("item: %d\n", *((int*)array->items[i]));
+    }
+}
+
 int main() {
     Array *array;
     createArray(&array);
-    
-    int arr[] = {1, 3, 4, 2};
+    int arr[] = {1, 3, 4, 2, 32, 12, 34, 25, 16};
     int len = sizeof(arr)/sizeof(int);
     for(int i = 0; i < len; ++i) {
         arrayAdd(array, &arr[i]);
@@ -19,11 +26,16 @@ int main() {
     arrayRemoveAt(array, 0);
     arrayRemoveAt(array, -5);
     arrayRemoveAt(array, -5);
+    printArray(array);
 
-    for(int i = 0;i < array->used; ++i) {
-        printf("output: %d\n", (*(int*)array->items[i]));
-    }
-    
+    Array *copy1;
+    arrayCopyShallow(array, &copy1);
+    printArray(copy1);
+
+    Array *cp;
+    arrayCopyDeep(array, NULL, &cp);
+    printArray(cp);
+
     destroyArray(array);
     return 0;
 }
