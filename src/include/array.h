@@ -19,13 +19,18 @@ typedef struct {
         0 :                      \
         ((float)(array)->used / (array)->len > 0.6))
 
+// 数组总长度
 #define array_size(array) ((array)->len)
+// 数组空闲长度
 #define array_empty_size(array) ((array)->len - (array)->used)
 
 enum STATE createArray(Array **out);
 void destroyArray(Array *array);
-enum STATE arrayPush(Array *array, void *item);
-// enum STATE arrayRemoveAll(Array *array);
+
+enum STATE arrayAdd(Array *array, void *item);
+enum STATE arrayAddAt(Array *array, void *item, size_t index);
+
+void arrayRemoveAll(Array *array);
 // enum STATE arrayRemoveAt(Array *array, int index);
 
 #endif

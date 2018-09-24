@@ -39,14 +39,52 @@ enum STATE createArray(Array **out) {
  * @params[item] 无类型的地址
  * @return OK || ERROR
 */
-enum STATE arrayPush(Array *array, void *item) {
-    if (check_expend(array) == 1) {
-        if (expendArray(array) != OK) {
-            return ERROR;
-        }
+enum STATE arrayAdd(Array *array, void *item) {
+    if (check_expend(array) == 1 && expendArray(array) != OK) {
+        return ERROR;
     }
 
     array->items[array->used] = item;
+    array->used ++;
+    return OK;
+}
+
+/**
+ * 向数组的索引位置 index 填入新值
+ * @params[array] 数组指针
+ * @params[item] 待插入的值
+ * @params[index] 待填入的索引值
+ * @return OK || ERROR 
+*/
+enum STATE arrayAddAt(Array *array, void *item, size_t index) {
+    // 将负数转为合法的索引
+    while ((int)index < 0) {
+        index = array->used + index;
+    }
+
+    // 首先，需要确保数组索引值不会溢出
+    // 其次，如果元素大于等于最后一个元素，则直接调用 arrayAdd 即可
+    if (index >= array->used) {
+        return arrayAdd(array, item);
+    }
+
+    if (index > MAX_ELEMENTS_LENGTH) {
+        return ERROR;
+    }
+
+    // 扩容检查
+    if (check_expend(array) == 1 && expendArray(array) != OK) {
+        return ERROR;
+    }
+
+    // 计算需要移动的长度
+    size_t shift = (array->len - index) * sizeof(int);
+    // 把当前索引的地址向后移一位，目的腾出位置插入新值
+    memmove(&(array->items[index + 1]),
+            &(array->items[index]),
+            shift);
+    // 填入新值
+    array->items[index] = item;
     array->used ++;
     return OK;
 }
@@ -75,6 +113,14 @@ static enum STATE expendArray(Array *array) {
 
     array->items = newItems;
     return OK;
+}
+
+/**
+ * 删除数组中所有元素
+ * @params[array] 数组指针 
+*/
+void arrayRemoveAll(Array *array) {
+    array->used = 0;
 }
 
 /**
