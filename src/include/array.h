@@ -25,12 +25,13 @@ typedef struct {
 #define array_empty_size(array) ((array)->len - (array)->used)
 
 enum STATE createArray(Array **out);
-void destroyArray(Array *array);
 
 enum STATE arrayAdd(Array *array, void *item);
 enum STATE arrayAddAt(Array *array, void *item, size_t index);
 
 void arrayRemoveAll(Array *array);
-// enum STATE arrayRemoveAt(Array *array, int index);
+enum STATE arrayRemoveAt(Array *array, size_t index);
+
+void destroyArray(Array *array);
 
 #endif

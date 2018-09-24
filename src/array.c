@@ -7,6 +7,7 @@
 #define MAX_ELEMENTS_LENGTH ((size_t) - 2)
 
 static enum STATE expendArray(Array *array);
+static size_t indexAbs(Array *array, size_t index);
 
 /**
  * 创建新的数组 
@@ -57,10 +58,8 @@ enum STATE arrayAdd(Array *array, void *item) {
  * @return OK || ERROR 
 */
 enum STATE arrayAddAt(Array *array, void *item, size_t index) {
-    // 将负数转为合法的索引
-    while ((int)index < 0) {
-        index = array->used + index;
-    }
+    // 将数值转为合法的索引
+    index = indexAbs(array, index);
 
     // 首先，需要确保数组索引值不会溢出
     // 其次，如果元素大于等于最后一个元素，则直接调用 arrayAdd 即可
@@ -115,12 +114,48 @@ static enum STATE expendArray(Array *array) {
     return OK;
 }
 
+static size_t indexAbs(Array *array, size_t index) {
+    if (index == -1) {
+        return array->used;
+    }
+
+    while ((int)index < 0) {
+        index = array->used + index;
+    }
+
+    if (index > array->len) {
+        index = array->used;
+    }
+
+    return index;
+}
+
 /**
- * 删除数组中所有元素
+ * 移除数组中所有元素（伪）
  * @params[array] 数组指针 
 */
 void arrayRemoveAll(Array *array) {
     array->used = 0;
+}
+
+/**
+ * 移除指定位置的元素
+ * @params[array] 数组指针
+ * @params[index] 索引值
+*/
+enum STATE arrayRemoveAt(Array *array, size_t index) {
+    index = indexAbs(array, index);
+    if (index < 0 || index > array->used) {
+        return ERROR;
+    }
+
+    size_t size = (array->len - index) * sizeof(int);
+    memmove(&(array->items[index]),
+            &(array->items[index+1]),
+            size);
+
+    array->used --;
+    return OK;
 }
 
 /**
@@ -131,5 +166,3 @@ void destroyArray(Array *array) {
     zfree(array->items);
     zfree(array);
 }
-
-
