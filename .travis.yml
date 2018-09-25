@@ -1,21 +1,9 @@
-language: c
+language: c++
 dist: trusty
 sudo: true
 
 compiler:
   - gcc
-
-# addons:
-#   apt:
-#     sources:
-#       - ubuntu-toolchain-r-test
-#       # - george-edison55-precise-backports
-#     packages:
-#       - cmake
-#       - gcc
-#       - g++
-#       - pkg-config
-#       - cpputest
 
 before_install:
   - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
