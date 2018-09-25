@@ -4,7 +4,7 @@
 TEST_GROUP_C_WRAPPER(DequeTest) {
     TEST_GROUP_C_SETUP_WRAPPER(DequeTest);
     TEST_GROUP_C_TEARDOWN_WRAPPER(DequeTest);
-}
+};
 
 TEST_C_WRAPPER(DequeTest, enqueItem);
 TEST_C_WRAPPER(DequeTest, dequeItem);
