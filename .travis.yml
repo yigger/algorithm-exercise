@@ -2,25 +2,22 @@ language: c
 dist: trusty
 
 compiler:
+  - clang
   - gcc
 
 addons:
   apt:
     sources:
-      - george-edison55-precise-backports
+      - ubuntu-toolchain-r-test
+      # - george-edison55-precise-backports
     packages:
-      - libc++-dev
-      - cmake-data
       - cmake
-      - time
-      - cpputest
-      - pkg-config
       - gcc
       - g++
+      - pkg-config
+      - cpputest
 
 script:
-  - mkdir build
-  - cd build
+  - mkdir build && cd build
   - cmake ..
-  - make
-  - make test
+  - make && make test
