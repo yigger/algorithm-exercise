@@ -35,6 +35,8 @@ enum STATE arrayRemoveAt(Array *array, size_t index);
 enum STATE arrayCopyShallow(Array *array, Array **out);
 enum STATE arrayCopyDeep(Array *array, void*(*cp)(void *), Array **out);
 
+enum STATE arrayGetLast(Array *array, void **out);
+enum STATE arrayGetAt(Array *array, size_t index, void **out);
 void destroyArray(Array *array);
 
 #endif

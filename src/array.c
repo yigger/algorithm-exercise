@@ -210,6 +210,31 @@ static enum STATE expendArray(Array *array) {
 }
 
 /**
+ * 获取数组最后一个数字 
+ * @params[array] 数组指针
+ * @params[out] 接受返回值
+ * @return OK || ERROR
+*/
+enum STATE arrayGetLast(Array *array, void **out) {
+    if (array->used == 0) {
+        *out = NULL;
+        return ERROR;
+    }
+    *out = array->items[array->used - 1];
+    return OK;
+}
+
+enum STATE arrayGetAt(Array *array, size_t index, void **out) {
+    if (array->used == 0) {
+        *out = NULL;
+        return ERROR;
+    }
+    index = indexAbs(array, index);
+    *out = array->items[index];
+    return OK;
+}
+
+/**
  * 负数索引转换为有效的索引..
  * eg:  array: 1, 3, 5, 7
  *      index = -1, value = 7
@@ -228,7 +253,7 @@ static size_t indexAbs(Array *array, size_t index) {
         index = array->used + index;
     }
 
-    if (index > array->len) {
+    if (index > array->len || index > array->used) {
         index = array->used;
     }
 

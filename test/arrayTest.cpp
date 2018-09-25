@@ -7,6 +7,7 @@ TEST_GROUP_C_WRAPPER(ArrayTest) {
 };
 
 TEST_C_WRAPPER(ArrayTest, addItem);
+TEST_C_WRAPPER(ArrayTest, addItemAt);
 
 int main(int argc, char **argv) {
     return RUN_ALL_TESTS(argc, argv);
