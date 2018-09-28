@@ -4,6 +4,12 @@
 static Array *array;
 static int stat;
 
+static void *cp(void *val) {
+    int *value = (int*)malloc(sizeof(int));
+    *value = *(int*)val;
+    return value;
+}
+
 TEST_GROUP_C_SETUP(ArrayTest) {
     stat = createArray(&array);
 };
@@ -37,17 +43,44 @@ TEST_C(ArrayTest, addItemAt) {
 };
 
 TEST_C(ArrayTest, removeAll) {
-    
+    arrayRemoveAll(array);
+    CHECK_EQUAL_C_INT(array->used, 0);
 };
 
 TEST_C(ArrayTest, removeAt) {
-    
+    stat = arrayRemoveAt(array, 0);
+    CHECK_EQUAL_C_INT(stat, OK);
 };
 
 TEST_C(ArrayTest, copyShallow) {
-    
+    int arr[] = {1, 3, 4, 2, 32, 12, 34, 25, 16};
+    int len = 9;
+    for(int i = 0;i < len; ++i) {
+        arrayAdd(array, &arr[i]);
+    }
+    Array *copy;
+    arrayCopyShallow(array, &copy);
+    for(int i = 0;i < len; ++i) {
+        CHECK_EQUAL_C_INT(*(int *)copy->items[i], arr[i]);
+    }
 };
 
 TEST_C(ArrayTest, copyDeep) {
+    int arr[] = {1, 3, 4, 2, 32, 12, 34, 25, 16};
+    int len = 9;
+    for(int i = 0;i < len; ++i) {
+        arrayAdd(array, &arr[i]);
+    }
     
+    Array *copy;
+    arrayCopyDeep(array, &cp, &copy);
+    for(int i = 0;i < len; ++i) {
+        CHECK_EQUAL_C_INT(*(int *)copy->items[i], arr[i]);
+    }
+
+    Array *copy2;
+    arrayCopyDeep(array, NULL, &copy2);
+    for(int i = 0;i < len; ++i) {
+        CHECK_EQUAL_C_INT(*(int *)copy2->items[i], arr[i]);
+    }
 };

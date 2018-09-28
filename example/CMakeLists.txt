@@ -2,6 +2,9 @@ project(Example)
 
 include_directories(${PROJECT_NAME}_INCLUDE_DIRS ${alotrithm_lib_INCLUDE_DIRS})
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CPPUTEST_C_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+
 add_executable(stack stack.c)
 add_executable(deque deque.c)
 add_executable(sort sort.c)

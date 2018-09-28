@@ -24,7 +24,7 @@ enum STATE createArray(Array **out) {
     array->len = DEFAULT_LEN;
     array->used = 0;
     // 分配存储元素的数组长度，默认值为 DEFAULT_LEN
-    array->items = zmalloc(sizeof(void*) * array->len);
+    array->items = zcalloc(sizeof(void*) * array->len);
     // 分配失败则销毁后退出
     if (!array->items) {
         zfree(array);
@@ -100,7 +100,7 @@ enum STATE arrayCopyShallow(Array *array, Array **out) {
         return MALLOC_ERR;
     }
 
-    copy->items = zmalloc(sizeof(void *) * array->len);
+    copy->items = zcalloc(sizeof(void *) * array->len);
     if (!copy->items) {
         zfree(copy);
         return MALLOC_ERR;
@@ -126,12 +126,12 @@ enum STATE arrayCopyShallow(Array *array, Array **out) {
 */
 enum STATE arrayCopyDeep(Array *array, void*(*cp)(void *), Array **out) {
     Array *copy;
-    copy = zmalloc(sizeof(Array *));
+    copy = zmalloc(sizeof(copy));
     if (!copy) {
         return MALLOC_ERR;
     }
 
-    copy->items = zmalloc(sizeof(void *) * array->used);
+    copy->items = zcalloc(sizeof(void *) * array->used);
     if (!copy->items) {
         zfree(copy);
         return MALLOC_ERR;
@@ -196,7 +196,7 @@ static enum STATE expendArray(Array *array) {
     }
 
     void **newItems = NULL;
-    newItems = zmalloc(sizeof(void *) * array->len);
+    newItems = zcalloc(sizeof(void *) * array->len);
     if (!newItems) {
         return MALLOC_ERR;
     }
