@@ -39,4 +39,7 @@ enum STATE arrayGetLast(Array *array, void **out);
 enum STATE arrayGetAt(Array *array, size_t index, void **out);
 void destroyArray(Array *array);
 
+void swapItem(void **t1, void **t2);
+void choseSort(Array *array, int (*compare)(const void *, const void *));
+void bubbleSort(Array *array, int (*compare)(const void *, const void *));
 #endif

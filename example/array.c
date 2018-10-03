@@ -9,6 +9,16 @@ static void printArray(Array *array) {
     }
 }
 
+static int compare(const void *t1, const void *t2) {
+    if (*(int*)t1 < *(int*)t2) {
+        return 1;
+    } else if (*(int*)t1 > *(int*)t2) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+
 int main() {
     Array *array;
     createArray(&array);
@@ -30,11 +40,15 @@ int main() {
 
     Array *copy1;
     arrayCopyShallow(array, &copy1);
+    bubbleSort(copy1, compare);
     printArray(copy1);
 
     Array *cp;
     arrayCopyDeep(array, NULL, &cp);
     printArray(cp);
+
+    // choseSort(array, compare);
+    printArray(array);
 
     destroyArray(array);
     return 0;

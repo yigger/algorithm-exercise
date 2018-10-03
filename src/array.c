@@ -268,3 +268,60 @@ void destroyArray(Array *array) {
     zfree(array->items);
     zfree(array);
 }
+
+/*
+ * 选择排序
+ *  每一轮只发生一次交换操作
+ * 时间复杂度：O(n*n)
+ * 空间复杂度：O(1)
+ * @params[array] 数组地址
+ * @params[compare] 比较元素大小的函数指针
+*/ 
+void choseSort(Array *array, int (*compare)(const void *, const void *)) {
+    if (array->used == 0) {
+        return ;
+    } 
+    
+    int i = 0, minIndex = 0;
+    for (; i < array->used; ++i) {
+        minIndex = i;
+        for (int j = i + 1; j < array->used; ++j) {
+            if (compare(array->items[minIndex], array->items[j]) == -1) {
+                minIndex = j;
+            }
+        }
+        swapItem(&array->items[i], &array->items[minIndex]);
+    }
+}
+
+/*
+ * 冒泡排序
+ *  每一比较都可能发生一次交换操作
+ * 时间复杂度：O(n*n)
+ * 空间复杂度：O(1)
+ * @params[array] 数组地址
+ * @params[compare] 比较元素大小的函数指针
+*/ 
+void bubbleSort(Array *array, int (*compare)(const void *, const void *)) {
+    if (array->used == 0) {
+        return ;
+    } 
+    
+    for(int i = 0;i < array->used; ++i) {
+        for(int j = i + 1; j < array->used; ++j) {
+            if (compare(array->items[i], array->items[j]) == -1) {
+                swapItem(&array->items[i], &array->items[j]);
+            }
+        }
+    }
+}
+
+/**
+ *  交换地址
+*/
+void swapItem(void **t1, void **t2) {
+    void *temp;
+    temp = *t1;
+    *t1 = *t2;
+    *t2 = temp;
+}
