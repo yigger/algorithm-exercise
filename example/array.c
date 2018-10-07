@@ -10,9 +10,9 @@ static void printArray(Array *array) {
 }
 
 static int compare(const void *t1, const void *t2) {
-    if (*(int*)t1 < *(int*)t2) {
+    if (*(int*)t1 > *(int*)t2) {
         return 1;
-    } else if (*(int*)t1 > *(int*)t2) {
+    } else if (*(int*)t1 < *(int*)t2) {
         return -1;
     } else {
         return 0;
@@ -22,7 +22,8 @@ static int compare(const void *t1, const void *t2) {
 int main() {
     Array *array;
     createArray(&array);
-    int arr[] = {1, 3, 4, 2, 32, 12, 34, 25, 16};
+    int arr[] = {15, 3, 4, 2, 32, 12, 34, 25, 14};
+    // int arr[] = {15, 16, 4, 13, 32};
     int len = sizeof(arr)/sizeof(int);
     for(int i = 0; i < len; ++i) {
         arrayAdd(array, &arr[i]);
@@ -47,7 +48,7 @@ int main() {
     arrayCopyDeep(array, NULL, &cp);
     printArray(cp);
 
-    // choseSort(array, compare);
+    quickSort(array, &compare);
     printArray(array);
 
     destroyArray(array);

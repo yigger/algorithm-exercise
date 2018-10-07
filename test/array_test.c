@@ -10,6 +10,16 @@ static void *cp(void *val) {
     return value;
 }
 
+static int compare(const void *t1, const void *t2) {
+    if (*(int*)t1 > *(int*)t2) {
+        return 1;
+    } else if (*(int*)t1 > *(int*)t2) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+
 TEST_GROUP_C_SETUP(ArrayTest) {
     stat = createArray(&array);
 };
@@ -84,3 +94,39 @@ TEST_C(ArrayTest, copyDeep) {
         CHECK_EQUAL_C_INT(*(int *)copy2->items[i], arr[i]);
     }
 };
+
+TEST_C (ArrayTest, choseSort) {
+    int arr[] = {1, 5, 3};
+    int len = 3;
+    for(int i = 0;i < len; ++i) {
+        arrayAdd(array, &arr[i]);
+    }
+    choseSort(array, &compare);
+    CHECK_EQUAL_C_INT(*(int *)array->items[0], 1);
+    CHECK_EQUAL_C_INT(*(int *)array->items[1], 3);
+    CHECK_EQUAL_C_INT(*(int *)array->items[2], 5);
+}
+
+TEST_C (ArrayTest, bubbleSort) {
+    int arr[] = {1, 5, 3};
+    int len = 3;
+    for(int i = 0;i < len; ++i) {
+        arrayAdd(array, &arr[i]);
+    }
+    bubbleSort(array, &compare);
+    CHECK_EQUAL_C_INT(*(int *)array->items[0], 1);
+    CHECK_EQUAL_C_INT(*(int *)array->items[1], 3);
+    CHECK_EQUAL_C_INT(*(int *)array->items[2], 5);
+}
+
+TEST_C (ArrayTest, insertSort) {
+    int arr[] = {1, 5, 3};
+    int len = 3;
+    for(int i = 0;i < len; ++i) {
+        arrayAdd(array, &arr[i]);
+    }
+    insertSort(array, &compare);
+    CHECK_EQUAL_C_INT(*(int *)array->items[0], 1);
+    CHECK_EQUAL_C_INT(*(int *)array->items[1], 3);
+    CHECK_EQUAL_C_INT(*(int *)array->items[2], 5);
+}

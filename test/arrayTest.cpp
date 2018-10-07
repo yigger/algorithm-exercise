@@ -12,6 +12,9 @@ TEST_C_WRAPPER(ArrayTest, removeAll);
 TEST_C_WRAPPER(ArrayTest, removeAt);
 TEST_C_WRAPPER(ArrayTest, copyShallow);
 TEST_C_WRAPPER(ArrayTest, copyDeep);
+TEST_C_WRAPPER(ArrayTest, choseSort);
+TEST_C_WRAPPER(ArrayTest, bubbleSort);
+TEST_C_WRAPPER(ArrayTest, insertSort);
 
 int main(int argc, char **argv) {
     return RUN_ALL_TESTS(argc, argv);
