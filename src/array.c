@@ -24,7 +24,7 @@ enum STATE createArray(Array **out) {
 	}
 
 	array->len = DEFAULT_LEN;
-	array_used(array) = 0;
+	array->used = 0;
 	// 分配存储元素的数组长度，默认值为 DEFAULT_LEN
 	array->items = zcalloc(sizeof(void*) * array->len);
 	// 分配失败则销毁后退出
