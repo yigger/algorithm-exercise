@@ -1,12 +1,10 @@
-﻿#include <stdio.h>
-#include <math.h>
-#include "common.h"
+﻿#include "common.h"
+
 #define PREFIX_SIZE (0)
 
 void *zmalloc(size_t size) {
 	void *ptr = malloc(size + PREFIX_SIZE);
 	if (ptr == NULL) {
-		printf("zmalloc 分配失败\n");
 		exit(1);
 	}
 	return ptr;
@@ -15,7 +13,6 @@ void *zmalloc(size_t size) {
 void *zcalloc(size_t size) {
 	void *ptr = calloc(1, size+PREFIX_SIZE);
 	if (ptr == NULL) {
-		printf("calloc 内存分配失败");
 		exit(1);
 	}
 	return ptr;
@@ -24,29 +21,4 @@ void *zcalloc(size_t size) {
 void zfree(void *ptr) {
 	if (ptr == NULL) return ;
 	free(ptr);
-}
-
-void swap(int *num1, int *num2) {
-	int temp;
-	temp = *num1;
-	*num1 = *num2;
-	*num2 = temp;
-}
-
-int less(int num1, int num2) {
-	if (num1 < num2) {
-		return 1;
-	} else if (num1 > num2) {
-		return -1;
-	} else {
-		return 0;
-	}
-}
-
-int *copyArray(int *array) {
-	int *copy = (int *)malloc(ARR_LENGTH * sizeof(int));
-	for (int i = 0; i < ARR_LENGTH; ++i) {
-		copy[i] = array[i];
-	}
-	return copy;
 }
