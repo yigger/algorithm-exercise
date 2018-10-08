@@ -1,6 +1,7 @@
 ﻿#include <stdio.h>
 #include "graph.h"
 #include "common.h"
+#include "deque.h"
 
 #define NODE_INIT_SIZE 16
 #define BFS 0
@@ -80,7 +81,6 @@ static int *
 _dfs(const Graph * const g, int dest, int *marked) {
     marked[dest] = 1;
     EdgeNode *edge = g->list[dest].firstedge;
-    
     while(edge != NULL) {
         if (marked[edge->adjvex] == 0) {
             _dfs(g, edge->adjvex, marked);
@@ -93,15 +93,28 @@ _dfs(const Graph * const g, int dest, int *marked) {
 // 广度优先搜索
 static int *
 _bfs(const Graph * const g, int dest, int *marked) {
-    // marked[dest] = 1;
-    // for(int i = 0; i < g->vertexSize; i ++) {
-    //     if (marked[i] == 0) {
-    //         marked[i] = 1;
-    //     }
-
-    // }
-
-    return NULL;
+    // 创建临时队列
+    Deque *queue;
+    createQueue(&queue);
+    // 标记已访问的元素
+    marked[dest] = 1;
+    // 入队
+    enqueue(queue, &dest);
+    void *adj;
+    while(!queueEmpty(queue)) {
+        // 出队，获取目标顶点
+        dequeue(queue, &adj);
+        // 遍历目标顶点周围的顶点
+        EdgeNode *edge = g->list[*(int*)adj].firstedge;
+        while(edge != NULL) {
+            if (marked[edge->adjvex] == 0) {
+                marked[edge->adjvex] = 1;
+                enqueue(queue, &edge->adjvex);
+            }
+            edge = edge->next;
+        }
+    }
+    return marked;
 }
 
 void destroyGraph(Graph *graph) {

@@ -15,6 +15,8 @@ typedef struct deque {
     size_t len;
 } Deque;
 
+#define queueEmpty(q) (q->len == 0)
+
 enum STATE createQueue(Deque **out);
 enum STATE enqueue(Deque *deque, void *val);
 enum STATE dequeue(Deque *deque, void **out);
