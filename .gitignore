@@ -4,3 +4,8 @@ Debug/
 CMakeFiles/
 Makefile
 build/
+*.cmake
+example/*
+!example/*.c
+CmakeCache.txt
+*.log
