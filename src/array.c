@@ -283,12 +283,12 @@ void choseSort(Array *array, int (*compare)(const void *, const void *)) {
 	if (array_used(array) == 0) {
 		return ;
 	} 
-	
-	int i = 0, minIndex = 0;
-	for (; i < array_used(array); ++i) {
+
+	int minIndex;
+	for (int i = 0; i < array_used(array); i++) {
 		minIndex = i;
-		for (int j = i + 1; j < array_used(array); ++j) {
-			if (compare(array->items[minIndex], array->items[j]) == 1) {
+		for (int j = i + 1; j < array_used(array); j++) {
+			if (compare(array->items[j], array->items[minIndex]) == -1) {
 				minIndex = j;
 			}
 		}
